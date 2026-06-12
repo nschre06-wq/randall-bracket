@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Randall Family Bracket · WC2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pitch:#1a4a2e;--gold:#f5c842;--gold-bg:rgba(245,200,66,.15);
+  --red:#d63031;--green:#00b894;--out:#636e72;
+  --white:#f0f4f0;--panel:rgba(0,0,0,.35);
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13);
+}
+body{background:var(--pitch);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 72px),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 72px);font-family:'Barlow',sans-serif;color:var(--white);min-height:100vh;padding-bottom:70px}
+.wrap{max-width:640px;margin:0 auto;padding:0 12px}
+
+/* HEADER */
+header{background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.2) 100%);border-bottom:1px solid var(--border);padding:28px 20px 22px;text-align:center}
+.eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(30px,8vw,52px);font-weight:900;letter-spacing:-.02em;line-height:1;text-transform:uppercase}
+.header-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
+.live-pill{margin-top:12px;display:inline-flex;align-items:center;gap:7px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.4s infinite;flex-shrink:0}
+.live-text{font-size:11px;color:rgba(255,255,255,.75);letter-spacing:.06em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ADMIN */
+.admin-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:12px}
+.admin-lbl{font-size:11px;color:rgba(255,255,255,.3)}
+.btn-admin{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--panel);color:rgba(255,255,255,.4);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:all .15s}
+.btn-admin.on{background:var(--gold-bg);color:var(--gold);border-color:rgba(245,200,66,.35)}
+.toast{font-size:11px;color:var(--gold);text-align:right;height:16px;margin-top:3px;padding-right:2px}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-top:14px}
+.tab{flex:1;padding:10px 0;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.4);cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;transition:all .15s}
+.tab.active{border-bottom-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
+.badge{margin-left:4px;background:var(--red);color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;display:none}
+
+/* LEGEND */
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.4);margin-top:10px}
+
+/* BOARD */
+.board{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.p-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;transition:background .15s}
+.p-card.editable{cursor:pointer}
+.p-card.editable:hover{background:rgba(0,0,0,.5)}
+.rank{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;text-align:center;color:rgba(255,255,255,.3)}
+.rank.top{color:var(--gold);font-size:20px}
+.p-name{font-size:15px;font-weight:700}
+.p-fam{font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.chip{display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid transparent}
+.chip.alive{background:rgba(0,184,148,.18);border-color:rgba(0,184,148,.25)}
+.chip.star{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.3)}
+.chip.out{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.06);color:var(--out);text-decoration:line-through;text-decoration-color:var(--red)}
+.chip-flag{font-size:15px;line-height:1}
+.chip-pts{font-size:10px;padding:1px 4px;border-radius:4px;background:rgba(245,200,66,.2);color:var(--gold);margin-left:2px;font-weight:700}
+.score{text-align:right}
+.score-n{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:900;line-height:1}
+.score-n.lead{color:var(--gold)}
+.score-l{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
+.edit-hint{font-size:10px;color:var(--gold);opacity:.7;margin-left:6px}
+.board-foot{text-align:center;font-size:11px;color:rgba(255,255,255,.2);margin-top:16px}
+
+/* CHAT */
+.chat-wrap{margin-top:14px}
+.compose{background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:12px;padding:16px;margin-bottom:16px}
+.c-lbl{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:8px}
+.c-sublbl{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.name-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.name-btn{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);transition:all .12s;font-family:inherit}
+.name-btn.sel{border-color:var(--gold);background:var(--gold-bg);color:var(--gold)}
+.react-row{display:flex;gap:8px;margin-bottom:12px}
+.react-btn{font-size:20px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:4px 8px;cursor:pointer;transition:all .12s}
+.react-btn.sel{border-color:var(--gold);background:var(--gold-bg)}
+textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--white);font-size:14px;padding:10px 12px;resize:none;outline:none;font-family:inherit}
+textarea::placeholder{color:rgba(255,255,255,.25)}
+.c-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+.char-c{font-size:11px;color:rgba(255,255,255,.25)}
+.btn-post{padding:8px 20px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:13px;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.btn-post:disabled{background:rgba(255,255,255,.1);color:rgba(255,255,255,.3);cursor:not-allowed}
+.empty-chat{text-align:center;padding:40px 20px;color:rgba(255,255,255,.25);font-size:14px}
+.empty-icon{font-size:32px;margin-bottom:8px}
+.c-card{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.c-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.c-who{display:flex;align-items:center;gap:8px}
+.c-emoji{font-size:20px}
+.c-name{font-size:14px;font-weight:700;color:var(--gold);font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.c-time{font-size:11px;color:rgba(255,255,255,.25)}
+.c-text{font-size:14px;color:rgba(255,255,255,.85);line-height:1.5}
+
+/* MODALS */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:#1a2e20;border:1px solid var(--border2);border-radius:16px;padding:24px;width:100%;max-width:340px}
+.m-title{font-size:18px;font-weight:700;margin-bottom:6px;font-family:'Barlow Condensed',sans-serif}
+.m-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px}
+.pin-in{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:var(--white);font-size:24px;font-weight:700;text-align:center;padding:10px 12px;letter-spacing:.2em;outline:none}
+.pin-in.err{border-color:var(--red)}
+.pin-err{font-size:12px;color:var(--red);margin-top:6px;text-align:center;display:none}
+.m-actions{display:flex;gap:10px;margin-top:16px}
+.btn-cancel{flex:1;padding:12px;background:transparent;border:1px solid var(--border);border-radius:8px;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:inherit}
+.btn-unlock{flex:2;padding:12px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:15px;font-weight:700;cursor:pointer}
+
+/* EDIT SHEET */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#1a2e20;border:1px solid var(--border2);border-radius:16px 16px 0 0;padding:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto}
+.s-title{font-size:20px;font-weight:700;margin-bottom:16px;font-family:'Barlow Condensed',sans-serif}
+.e-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:12px}
+.e-row:last-of-type{border-bottom:none}
+.e-ctry{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;flex:1}
+.pts-in{width:62px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:var(--white);font-size:20px;font-weight:700;text-align:center;padding:4px 6px;outline:none}
+.elim-btn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--white);font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.elim-btn.on{background:var(--red);border-color:var(--red)}
+.s-actions{display:flex;gap:10px;margin-top:18px}
+.btn-save{flex:1;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:16px;font-weight:700;cursor:pointer;padding:12px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+
+/* SETUP */
+.setup{background:rgba(213,89,45,.12);border:1px solid rgba(213,89,45,.3);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.8);display:none}
+.setup strong{color:var(--gold)}
+.setup a{color:var(--gold)}
+.setup ol{padding-left:18px;margin-top:6px}
+
+/* LOADING */
+#loading{position:fixed;inset:0;background:var(--pitch);display:flex;align-items:center;justify-content:center;z-index:999}
+.spin{color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:20px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<div id="loading"><div class="spin">LOADING BRACKET...</div></div>
+
+<header>
+  <div class="eyebrow">⚽ 2026 FIFA World Cup</div>
+  <h1>Randall Family<br>Bracket</h1>
+  <div class="header-sub">USA · Canada · Mexico · June 11 – July 19</div>
+  <div class="live-pill">
+    <span class="live-dot"></span>
+    <span class="live-text" id="lastUpdated">Jun 11 · MEX 2–0 RSA · KOR 2–1 CZE</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="admin-bar">
+    <span class="admin-lbl">Admin</span>
+    <button class="btn-admin" id="adminBtn" onclick="toggleAdmin()">Edit Scores</button>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <div class="setup" id="setup">
+    ⚠️ <strong>Almost there!</strong> To sync scores and comments across all devices, connect Firebase (free):
+    <ol>
+      <li>Go to <a href="https://console.firebase.google.com/" target="_blank">console.firebase.google.com</a></li>
+      <li>Create a project → Add a web app → copy the config</li>
+      <li>Paste it into this file where it says <strong>PASTE_CONFIG_HERE</strong></li>
+      <li>In Firestore rules, set read/write to <strong>true</strong> for now</li>
+    </ol>
+    Until then, scores save locally and comments won't persist between devices.
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" id="tab-board" onclick="switchTab('board')">🏆 Leaderboard</button>
+    <button class="tab" id="tab-chat" onclick="switchTab('chat')">💬 Family Chat <span class="badge" id="badge"></span></button>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="pane-board">
+    <div class="legend">
+      <span>🟢 Still alive</span><span>⭐ Contender</span><span>⚫ Eliminated</span>
+    </div>
+    <div class="board" id="board"></div>
+    <div class="board-foot">Randall Family Bracket · WC2026 · All 48 countries covered</div>
+  </div>
+
+  <!-- CHAT -->
+  <div id="pane-chat" style="display:none">
+    <div class="chat-wrap">
+      <div class="compose">
+        <div class="c-lbl">Drop a comment</div>
+        <div class="c-sublbl">Who are you?</div>
+        <div class="name-grid" id="nameGrid"></div>
+        <div class="c-sublbl">Pick a reaction</div>
+        <div class="react-row" id="reactRow"></div>
+        <textarea id="commentInput" rows="2" maxlength="280" placeholder="Talk trash, cheer your team, celebrate or cry..." oninput="onInput()"></textarea>
+        <div class="c-footer">
+          <span class="char-c" id="charCount">0/280</span>
+          <button class="btn-post" id="postBtn" onclick="postComment()" disabled>Post ⚡</button>
+        </div>
+      </div>
+      <div id="feed"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PIN MODAL -->
+<div class="overlay" id="pinModal" style="display:none">
+  <div class="modal">
+    <div class="m-title">Admin Access</div>
+    <div class="m-sub">Enter your PIN to edit scores</div>
+    <input class="pin-in" type="password" id="pinInput" placeholder="····" onkeydown="if(event.key==='Enter')checkPin()">
+    <div class="pin-err" id="pinErr">Incorrect PIN — try again</div>
+    <div class="m-actions">
+      <button class="btn-cancel" onclick="closePinModal()">Cancel</button>
+      <button class="btn-unlock" onclick="checkPin()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT SHEET -->
+<div class="sheet-bg" id="sheet" style="display:none">
+  <div class="sheet">
+    <div class="s-title" id="sheetTitle">Edit</div>
+    <div id="sheetBody"></div>
+    <div class="s-actions">
+      <button class="btn-cancel" onclick="closeSheet()">Cancel</button>
+      <button class="btn-save" onclick="saveEdit()">Save & Publish</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── FIREBASE (optional — paste config to enable live sync) ──────
+// To enable: replace null with your Firebase config object
+// Get it from Firebase Console → Project Settings → Your apps → SDK setup
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCL-V9ZsWKRGL7...",
+  authDomain: "fifa-randall.firebaseapp.com",
+  projectId: "fifa-randall",
+  storageBucket: "fifa-randall.firebasestorage.app",
+  messagingSenderId: "267555747296",
+  appId: "1:267555747296:web:8dd53839267ee7778ba785",
+  measurementId: "G-ES3SZ439RD"
+};
+
+
+// ─── DATA ─────────────────────────────────────────────────────────
+const PIN = "1234";
+
+const C = {
+  "Brazil":{f:"🇧🇷",s:true},"Germany":{f:"🇩🇪",s:true},"Argentina":{f:"🇦🇷",s:true},
+  "France":{f:"🇫🇷",s:true},"Spain":{f:"🇪🇸",s:true},"Portugal":{f:"🇵🇹",s:true},
+  "England":{f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",s:true},"Netherlands":{f:"🇳🇱",s:false},"Colombia":{f:"🇨🇴",s:false},
+  "Qatar":{f:"🇶🇦",s:false},"Japan":{f:"🇯🇵",s:false},"Uzbekistan":{f:"🇺🇿",s:false},
+  "Uruguay":{f:"🇺🇾",s:false},"Norway":{f:"🇳🇴",s:false},"Australia":{f:"🇦🇺",s:false},
+  "Switzerland":{f:"🇨🇭",s:false},"Haiti":{f:"🇭🇹",s:false},"South Korea":{f:"🇰🇷",s:false},
+  "Jordan":{f:"🇯🇴",s:false},"Türkiye":{f:"🇹🇷",s:false},"Ecuador":{f:"🇪🇨",s:false},
+  "Iran":{f:"🇮🇷",s:false},"Morocco":{f:"🇲🇦",s:false},"DR Congo":{f:"🇨🇩",s:false},
+  "Ivory Coast":{f:"🇨🇮",s:false},"Curaçao":{f:"🇨🇼",s:false},"Senegal":{f:"🇸🇳",s:false},
+  "Canada":{f:"🇨🇦",s:false},"Paraguay":{f:"🇵🇾",s:false},"Croatia":{f:"🇭🇷",s:false},
+  "Panama":{f:"🇵🇦",s:false},"USA":{f:"🇺🇸",s:false},"Belgium":{f:"🇧🇪",s:false},
+  "Algeria":{f:"🇩🇿",s:false},"South Africa":{f:"🇿🇦",s:false},"Sweden":{f:"🇸🇪",s:false},
+  "Mexico":{f:"🇲🇽",s:false},"Saudi Arabia":{f:"🇸🇦",s:false},"Cape Verde":{f:"🇨🇻",s:false},
+  "Ghana":{f:"🇬🇭",s:false},"Iraq":{f:"🇮🇶",s:false},"Bosnia & Herz.":{f:"🇧🇦",s:false},
+  "Austria":{f:"🇦🇹",s:false},"Tunisia":{f:"🇹🇳",s:false},"Egypt":{f:"🇪🇬",s:false},
+  "Scotland":{f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",s:false},"New Zealand":{f:"🇳🇿",s:false},"Czechia":{f:"🇨🇿",s:false}
+};
+
+const DEFAULT = [
+  {n:"Becky",  fam:"Becky",             cc:["Brazil"],                         pts:{Brazil:0},                              e:{Brazil:false}},
+  {n:"Janell", fam:"Janell's family",   cc:["Germany"],                        pts:{Germany:0},                             e:{Germany:false}},
+  {n:"Trent",  fam:"Janell's family",   cc:["Colombia","Qatar"],               pts:{Colombia:0,Qatar:0},                    e:{Colombia:false,Qatar:false}},
+  {n:"Addi",   fam:"Janell's family",   cc:["Japan","Uzbekistan"],             pts:{Japan:0,Uzbekistan:0},                  e:{Japan:false,Uzbekistan:false}},
+  {n:"Sadie",  fam:"Janell's family",   cc:["Uruguay"],                        pts:{Uruguay:0},                             e:{Uruguay:false}},
+  {n:"Kaysen", fam:"Janell's family",   cc:["Norway"],                         pts:{Norway:0},                              e:{Norway:false}},
+  {n:"Becca",  fam:"Janell's family",   cc:["Australia"],                      pts:{Australia:0},                           e:{Australia:false}},
+  {n:"Collete",fam:"Collete's family",  cc:["Switzerland","Haiti"],            pts:{Switzerland:0,Haiti:0},                 e:{Switzerland:false,Haiti:false}},
+  {n:"Dan",    fam:"Collete's family",  cc:["Portugal"],                       pts:{Portugal:0},                            e:{Portugal:false}},
+  {n:"Asher",  fam:"Collete's family",  cc:["South Korea","Jordan"],           pts:{"South Korea":1,Jordan:0},              e:{"South Korea":false,Jordan:false}},
+  {n:"Issac",  fam:"Collete's family",  cc:["Türkiye"],                        pts:{"Türkiye":0},                           e:{"Türkiye":false}},
+  {n:"Levi",   fam:"Collete's family",  cc:["Ecuador"],                        pts:{Ecuador:0},                             e:{Ecuador:false}},
+  {n:"Ethan",  fam:"Collete's family",  cc:["Czechia"],                        pts:{Czechia:0},                             e:{Czechia:false}},
+  {n:"Natalie J",fam:"Natalie J's family",cc:["France"],                       pts:{France:0},                              e:{France:false}},
+  {n:"Devin",  fam:"Natalie J's family",cc:["Morocco","DR Congo"],             pts:{Morocco:0,"DR Congo":0},                e:{Morocco:false,"DR Congo":false}},
+  {n:"Ashlyn", fam:"Natalie J's family",cc:["Ivory Coast","Curaçao"],          pts:{"Ivory Coast":0,"Curaçao":0},           e:{"Ivory Coast":false,"Curaçao":false}},
+  {n:"Jada",   fam:"Natalie J's family",cc:["Senegal"],                        pts:{Senegal:0},                             e:{Senegal:false}},
+  {n:"Deakon", fam:"Natalie J's family",cc:["Canada"],                         pts:{Canada:0},                              e:{Canada:false}},
+  {n:"Leo",    fam:"Natalie J's family",cc:["Paraguay"],                       pts:{Paraguay:0},                            e:{Paraguay:false}},
+  {n:"Rachel", fam:"Rachel's family",   cc:["Spain"],                          pts:{Spain:0},                               e:{Spain:false}},
+  {n:"Joe",    fam:"Rachel's family",   cc:["Croatia","Panama"],               pts:{Croatia:0,Panama:0},                    e:{Croatia:false,Panama:false}},
+  {n:"Claire", fam:"Rachel's family",   cc:["USA"],                            pts:{USA:0},                                 e:{USA:false}},
+  {n:"Liam",   fam:"Rachel's family",   cc:["Belgium"],                        pts:{Belgium:0},                             e:{Belgium:false}},
+  {n:"Rand",   fam:"Rachel's family",   cc:["Algeria"],                        pts:{Algeria:0},                             e:{Algeria:false}},
+  {n:"Paige",  fam:"Rachel's family",   cc:["South Africa"],                   pts:{"South Africa":0},                      e:{"South Africa":false}},
+  {n:"Brittany",fam:"Rachel's family",  cc:["Sweden"],                         pts:{Sweden:0},                              e:{Sweden:false}},
+  {n:"Dustin", fam:"Dustin's family",   cc:["Mexico","Saudi Arabia","Cape Verde"],pts:{Mexico:1,"Saudi Arabia":0,"Cape Verde":0},e:{Mexico:false,"Saudi Arabia":false,"Cape Verde":false}},
+  {n:"Natalie R",fam:"Dustin's family", cc:["Ghana","Iraq"],                   pts:{Ghana:0,Iraq:0},                        e:{Ghana:false,Iraq:false}},
+  {n:"Roman",  fam:"Dustin's family",   cc:["Argentina"],                      pts:{Argentina:0},                           e:{Argentina:false}},
+  {n:"Liz",    fam:"Liz's family",      cc:["England"],                        pts:{England:0},                             e:{England:false}},
+  {n:"Vilate", fam:"Liz's family",      cc:["Netherlands","Bosnia & Herz."],   pts:{Netherlands:0,"Bosnia & Herz.":0},      e:{Netherlands:false,"Bosnia & Herz.":false}},
+  {n:"Lilly",  fam:"Liz's family",      cc:["Austria"],                        pts:{Austria:0},                             e:{Austria:false}},
+  {n:"Arvin",  fam:"Liz's family",      cc:["Tunisia","Egypt"],                pts:{Tunisia:0,Egypt:0},                     e:{Tunisia:false,Egypt:false}},
+  {n:"Adrianne",fam:"Liz's family",     cc:["Scotland","New Zealand"],         pts:{Scotland:0,"New Zealand":0},            e:{Scotland:false,"New Zealand":false}}
+];
+
+const NAMES = ["Becky","Janell","Trent","Addi","Sadie","Kaysen","Becca","Collete","Dan","Asher","Issac","Levi","Ethan","Natalie J","Devin","Ashlyn","Jada","Deakon","Leo","Rachel","Joe","Claire","Liam","Rand","Paige","Brittany","Dustin","Natalie R","Roman","Liz","Vilate","Lilly","Arvin","Adrianne"];
+const EMOJIS = ["⚽","🔥","😂","😭","👑","💀","🤞","🙌"];
+const MEDALS = ["🥇","🥈","🥉"];
+
+// ─── STATE ────────────────────────────────────────────────────────
+let players = JSON.parse(JSON.stringify(DEFAULT));
+let comments = [];
+let adminMode = false;
+let editIdx = null;
+let editState = {};
+let selName = "";
+let selEmoji = "⚽";
+let fbApp = null, fbDb = null;
+
+// ─── FIREBASE INIT ────────────────────────────────────────────────
+async function initFirebase() {
+  if (!FIREBASE_CONFIG) {
+    document.getElementById("setup").style.display = "block";
+    loadLocal();
+    boot();
+    return;
+  }
+  try {
+    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
+    const { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, limit } =
+      await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    fbApp = initializeApp(FIREBASE_CONFIG);
+    fbDb = getFirestore(fbApp);
+    window._fs = { doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, limit };
+
+    // Load scores
+    try {
+      const snap = await getDoc(doc(fbDb, "bracket", "scores"));
+      if (snap.exists()) {
+        const d = snap.data();
+        if (d.players) players = d.players;
+        if (d.lastUpdated) document.getElementById("lastUpdated").textContent = d.lastUpdated;
+      }
+    } catch(e) { console.warn("Score load:", e); }
+
+    // Live comments
+    try {
+      const q = query(collection(fbDb, "comments"), orderBy("ts","desc"), limit(100));
+      onSnapshot(q, snap => {
+        comments = snap.docs.map(d => ({id:d.id,...d.data()}));
+        renderFeed();
+        updateBadge();
+      });
+    } catch(e) { console.warn("Comments:", e); }
+
+  } catch(e) {
+    console.warn("Firebase failed:", e);
+    document.getElementById("setup").style.display = "block";
+    loadLocal();
+  }
+  boot();
+}
+
+// ─── LOCAL STORAGE FALLBACK ───────────────────────────────────────
+function loadLocal() {
+  try {
+    const d = JSON.parse(localStorage.getItem("rfb_scores")||"null");
+    if (d) { if(d.players) players=d.players; if(d.lu) document.getElementById("lastUpdated").textContent=d.lu; }
+    const c = JSON.parse(localStorage.getItem("rfb_comments")||"[]");
+    comments = c;
+  } catch(e) {}
+}
+function saveLocal() {
+  try { localStorage.setItem("rfb_scores", JSON.stringify({players, lu:document.getElementById("lastUpdated").textContent})); } catch(e){}
+}
+
+// ─── SAVE SCORES ─────────────────────────────────────────────────
+async function persistScores() {
+  const lu = `Updated ${new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})} at ${new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})}`;
+  document.getElementById("lastUpdated").textContent = lu;
+  showToast("Saving...");
+  saveLocal();
+  if (fbDb && window._fs) {
+    try {
+      await window._fs.setDoc(window._fs.doc(fbDb,"bracket","scores"), {players, lastUpdated:lu});
+      showToast("✓ Published to everyone");
+    } catch(e) { showToast("Save error — check Firebase"); }
+  } else {
+    showToast("✓ Saved locally (share your screen to update others)");
+  }
+}
+
+// ─── BOOT ─────────────────────────────────────────────────────────
+function boot() {
+  document.getElementById("loading").style.display = "none";
+  renderBoard();
+  buildNameGrid();
+  buildReactRow();
+  renderFeed();
+}
+
+// ─── HELPERS ──────────────────────────────────────────────────────
+const total = p => p.cc.reduce((s,c)=>s+(p.pts[c]||0),0);
+const alive = p => p.cc.some(c=>!p.e[c]);
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  clearTimeout(window._tt);
+  window._tt = setTimeout(()=>t.textContent="", 3000);
+}
+function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+// ─── BOARD ────────────────────────────────────────────────────────
+function renderBoard() {
+  const sorted = players.map((p,i)=>({...p,_i:i,_t:total(p),_a:alive(p)}))
+    .sort((a,b)=>b._t-a._t||(b._a?1:0)-(a._a?1:0));
+  document.getElementById("board").innerHTML = sorted.map((p,rank)=>{
+    const lead = rank===0 && p._t>0;
+    const bc = lead?"#f5c842":p._a?"#00b894":"#636e72";
+    const rk = rank<3?`<div class="rank top">${MEDALS[rank]}</div>`:`<div class="rank">${rank+1}</div>`;
+    const chips = p.cc.map(c=>{
+      const ci=C[c]||{};
+      const el=p.e[c], pts=p.pts[c]||0;
+      const cls = el?"chip out":ci.s?"chip star":"chip alive";
+      return `<div class="${cls}"><span class="chip-flag">${ci.f||""}</span>${esc(c)}${ci.s&&!el?`<span style="font-size:10px">⭐</span>`:""}${pts>0?`<span class="chip-pts">${pts}pt</span>`:""}</div>`;
+    }).join("");
+    return `<div class="p-card${adminMode?" editable":""}" style="border-left:3px solid ${bc}" onclick="${adminMode?`openEdit(${p._i})`:""}">${rk}<div><div style="display:flex;align-items:center"><span class="p-name">${esc(p.n)}</span>${adminMode?`<span class="edit-hint">tap to edit</span>`:""}</div><div class="p-fam">${esc(p.fam)}</div><div class="chips">${chips}</div></div><div class="score"><div class="score-n${lead?" lead":""}">${p._t}</div><div class="score-l">pts</div></div></div>`;
+  }).join("");
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────
+function switchTab(t) {
+  document.getElementById("pane-board").style.display = t==="board"?"":"none";
+  document.getElementById("pane-chat").style.display = t==="chat"?"":"none";
+  document.getElementById("tab-board").className = "tab"+(t==="board"?" active":"");
+  document.getElementById("tab-chat").className = "tab"+(t==="chat"?" active":"");
+}
+
+// ─── ADMIN ────────────────────────────────────────────────────────
+function toggleAdmin() {
+  if (adminMode) {
+    adminMode = false;
+    document.getElementById("adminBtn").className="btn-admin";
+    document.getElementById("adminBtn").textContent="Edit Scores";
+    renderBoard();
+  } else {
+    document.getElementById("pinModal").style.display="flex";
+    setTimeout(()=>document.getElementById("pinInput").focus(),80);
+  }
+}
+function closePinModal() {
+  document.getElementById("pinModal").style.display="none";
+  document.getElementById("pinInput").value="";
+  document.getElementById("pinErr").style.display="none";
+  document.getElementById("pinInput").className="pin-in";
+}
+function checkPin() {
+  if (document.getElementById("pinInput").value===PIN) {
+    adminMode=true;
+    document.getElementById("adminBtn").className="btn-admin on";
+    document.getElementById("adminBtn").textContent="Done Editing";
+    closePinModal(); renderBoard();
+  } else {
+    document.getElementById("pinErr").style.display="block";
+    document.getElementById("pinInput").className="pin-in err";
+  }
+}
+
+// ─── EDIT SHEET ───────────────────────────────────────────────────
+function openEdit(i) {
+  editIdx = i;
+  const p = players[i];
+  editState = {};
+  p.cc.forEach(c=>{ editState[c]={pts:p.pts[c]||0,el:p.e[c]||false}; });
+  document.getElementById("sheetTitle").textContent = `Edit · ${p.n}`;
+  document.getElementById("sheetBody").innerHTML = p.cc.map(c=>{
+    const ci=C[c]||{};
+    const id="eb_"+c.replace(/\W/g,"_");
+    return `<div class="e-row"><div class="e-ctry"><span style="font-size:20px">${ci.f||""}</span>${esc(c)}${ci.s?" ⭐":""}</div><input class="pts-in" type="number" min="0" max="99" value="${editState[c].pts}" onchange="editState['${c}'].pts=+this.value"><button class="elim-btn${editState[c].el?" on":""}" id="${id}" onclick="togEl('${c}','${id}')">${editState[c].el?"✕":"●"}</button></div>`;
+  }).join("");
+  document.getElementById("sheet").style.display="flex";
+}
+function togEl(c,id) {
+  editState[c].el = !editState[c].el;
+  const b = document.getElementById(id);
+  b.className = "elim-btn"+(editState[c].el?" on":"");
+  b.textContent = editState[c].el?"✕":"●";
+}
+function closeSheet() { document.getElementById("sheet").style.display="none"; editIdx=null; }
+async function saveEdit() {
+  if (editIdx===null) return;
+  const p = players[editIdx];
+  p.cc.forEach(c=>{ p.pts[c]=Number(editState[c].pts)||0; p.e[c]=editState[c].el; });
+  closeSheet(); renderBoard();
+  await persistScores();
+}
+
+// ─── CHAT ─────────────────────────────────────────────────────────
+function buildNameGrid() {
+  document.getElementById("nameGrid").innerHTML = NAMES.map(n=>
+    `<button class="name-btn" onclick="selN('${n}')">${n}</button>`).join("");
+}
+function selN(n) {
+  selName = n;
+  document.querySelectorAll(".name-btn").forEach(b=>b.className="name-btn"+(b.textContent===n?" sel":""));
+  updatePost();
+}
+function buildReactRow() {
+  document.getElementById("reactRow").innerHTML = EMOJIS.map(e=>
+    `<button class="react-btn${e===selEmoji?" sel":""}" onclick="selE('${e}')">${e}</button>`).join("");
+}
+function selE(e) {
+  selEmoji = e;
+  document.querySelectorAll(".react-btn").forEach(b=>b.className="react-btn"+(b.textContent===e?" sel":""));
+}
+function onInput() {
+  const v = document.getElementById("commentInput").value;
+  document.getElementById("charCount").textContent = `${v.length}/280`;
+  updatePost();
+}
+function updatePost() {
+  document.getElementById("postBtn").disabled = !selName || !document.getElementById("commentInput").value.trim();
+}
+async function postComment() {
+  const txt = document.getElementById("commentInput").value.trim();
+  if (!selName||!txt) return;
+  const btn = document.getElementById("postBtn");
+  btn.disabled=true; btn.textContent="Posting...";
+  const entry = {
+    name:selName, text:txt, reaction:selEmoji,
+    time:new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}),
+    ts:Date.now()
+  };
+  if (fbDb && window._fs) {
+    try { await window._fs.addDoc(window._fs.collection(fbDb,"comments"), entry); }
+    catch(e) { comments.unshift(entry); saveLocal(); renderFeed(); }
+  } else {
+    comments.unshift(entry);
+    try { localStorage.setItem("rfb_comments", JSON.stringify(comments.slice(0,100))); } catch(e){}
+    renderFeed(); updateBadge();
+  }
+  document.getElementById("commentInput").value="";
+  document.getElementById("charCount").textContent="0/280";
+  btn.textContent="Post ⚡"; updatePost();
+}
+function renderFeed() {
+  const feed = document.getElementById("feed");
+  if (!comments.length) {
+    feed.innerHTML=`<div class="empty-chat"><div class="empty-icon">💬</div>No comments yet — be the first to talk trash</div>`;
+    return;
+  }
+  feed.innerHTML = comments.map(c=>`
+    <div class="c-card">
+      <div class="c-hdr">
+        <div class="c-who"><span class="c-emoji">${c.reaction||"⚽"}</span><span class="c-name">${esc(c.name)}</span></div>
+        <span class="c-time">${esc(c.time||"")}</span>
+      </div>
+      <div class="c-text">${esc(c.text)}</div>
+    </div>`).join("");
+}
+function updateBadge() {
+  const b = document.getElementById("badge");
+  if (comments.length>0){b.style.display="inline";b.textContent=comments.length;}
+  else b.style.display="none";
+}
+
+// ─── GO ───────────────────────────────────────────────────────────
+initFirebase();
+</script>
+</body>
+</html>
