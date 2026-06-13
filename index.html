@@ -7,191 +7,311 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --pitch:#1a4a2e;--gold:#f5c842;--gold-bg:rgba(245,200,66,.15);
-  --red:#d63031;--green:#00b894;--out:#636e72;
-  --white:#f0f4f0;--panel:rgba(0,0,0,.35);
-  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13);
-}
-body{background:var(--pitch);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 72px),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 72px);font-family:'Barlow',sans-serif;color:var(--white);min-height:100vh;padding-bottom:70px}
+:root{--pitch:#1a4a2e;--gold:#f5c842;--gold-bg:rgba(245,200,66,.15);--red:#d63031;--green:#00b894;--out:#636e72;--white:#f0f4f0;--panel:rgba(0,0,0,.35);--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.13)}
+body{background:var(--pitch);background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 72px),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0,rgba(255,255,255,.02) 1px,transparent 1px,transparent 72px);font-family:'Barlow',sans-serif;color:var(--white);min-height:100vh;padding-bottom:80px}
 .wrap{max-width:640px;margin:0 auto;padding:0 12px}
-
-/* HEADER */
-header{background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.2) 100%);border-bottom:1px solid var(--border);padding:28px 20px 22px;text-align:center}
+header{background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,rgba(0,0,0,.2) 100%);border-bottom:1px solid var(--border);padding:24px 20px 20px;text-align:center}
 .eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(30px,8vw,52px);font-weight:900;letter-spacing:-.02em;line-height:1;text-transform:uppercase}
+h1{font-family:'Barlow Condensed',sans-serif;font-size:clamp(28px,7vw,48px);font-weight:900;letter-spacing:-.02em;line-height:1;text-transform:uppercase}
 .header-sub{font-size:12px;color:rgba(255,255,255,.45);margin-top:8px}
-.live-pill{margin-top:12px;display:inline-flex;align-items:center;gap:7px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px}
+.live-pill{margin-top:10px;display:inline-flex;align-items:center;gap:7px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:5px 14px}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1.4s infinite;flex-shrink:0}
 .live-text{font-size:11px;color:rgba(255,255,255,.75);letter-spacing:.06em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-
-/* ADMIN */
-.admin-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:12px}
+.admin-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px}
 .admin-lbl{font-size:11px;color:rgba(255,255,255,.3)}
-.btn-admin{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--panel);color:rgba(255,255,255,.4);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:all .15s}
-.btn-admin.on{background:var(--gold-bg);color:var(--gold);border-color:rgba(245,200,66,.35)}
-.toast{font-size:11px;color:var(--gold);text-align:right;height:16px;margin-top:3px;padding-right:2px}
-
-/* TABS */
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-top:14px}
-.tab{flex:1;padding:10px 0;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.4);cursor:pointer;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;transition:all .15s}
+.btn-sm{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:var(--panel);color:rgba(255,255,255,.4);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:all .15s}
+.btn-sm.on{background:var(--gold-bg);color:var(--gold);border-color:rgba(245,200,66,.35)}
+.toast{font-size:11px;color:var(--gold);text-align:right;height:14px;margin-top:2px}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-top:12px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:9px 14px;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.4);cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;transition:all .15s;white-space:nowrap}
 .tab.active{border-bottom-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
-.badge{margin-left:4px;background:var(--red);color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;display:none}
-
-/* LEGEND */
-.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.4);margin-top:10px}
-
-/* BOARD */
-.board{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-.p-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;transition:background .15s}
-.p-card.editable{cursor:pointer}
-.p-card.editable:hover{background:rgba(0,0,0,.5)}
-.rank{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;text-align:center;color:rgba(255,255,255,.3)}
-.rank.top{color:var(--gold);font-size:20px}
-.p-name{font-size:15px;font-weight:700}
-.p-fam{font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
-.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
-.chip{display:flex;align-items:center;gap:4px;padding:3px 8px 3px 5px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid transparent}
-.chip.alive{background:rgba(0,184,148,.18);border-color:rgba(0,184,148,.25)}
-.chip.star{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.3)}
-.chip.out{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.06);color:var(--out);text-decoration:line-through;text-decoration-color:var(--red)}
-.chip-flag{font-size:15px;line-height:1}
-.chip-pts{font-size:10px;padding:1px 4px;border-radius:4px;background:rgba(245,200,66,.2);color:var(--gold);margin-left:2px;font-weight:700}
-.score{text-align:right}
-.score-n{font-family:'Barlow Condensed',sans-serif;font-size:34px;font-weight:900;line-height:1}
-.score-n.lead{color:var(--gold)}
-.score-l{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;margin-top:2px}
-.edit-hint{font-size:10px;color:var(--gold);opacity:.7;margin-left:6px}
-.board-foot{text-align:center;font-size:11px;color:rgba(255,255,255,.2);margin-top:16px}
-
-/* CHAT */
-.chat-wrap{margin-top:14px}
-.compose{background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:12px;padding:16px;margin-bottom:16px}
-.c-lbl{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;font-weight:600;margin-bottom:8px}
-.c-sublbl{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.badge{margin-left:3px;background:var(--red);color:#fff;font-size:9px;padding:1px 4px;border-radius:8px;display:none;vertical-align:middle}
+.section-card{background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:12px;padding:16px;margin-bottom:12px}
+.sec-title{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-bottom:12px}
 .name-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
 .name-btn{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);transition:all .12s;font-family:inherit}
 .name-btn.sel{border-color:var(--gold);background:var(--gold-bg);color:var(--gold)}
-.react-row{display:flex;gap:8px;margin-bottom:12px}
-.react-btn{font-size:20px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:4px 8px;cursor:pointer;transition:all .12s}
+.btn-gold{width:100%;padding:12px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:15px;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.btn-gold:disabled{background:rgba(255,255,255,.1);color:rgba(255,255,255,.3);cursor:not-allowed}
+.empty-state{text-align:center;padding:36px 20px;color:rgba(255,255,255,.25);font-size:14px}
+.empty-icon{font-size:36px;margin-bottom:8px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:rgba(255,255,255,.4);margin:10px 0 8px}
+.board{display:flex;flex-direction:column;gap:6px}
+.p-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:11px 13px;display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:center;transition:background .15s}
+.p-card.editable{cursor:pointer}
+.p-card.editable:hover{background:rgba(0,0,0,.5)}
+.rank{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;text-align:center;color:rgba(255,255,255,.3)}
+.rank.top{color:var(--gold);font-size:19px}
+.p-name{font-size:14px;font-weight:700}
+.p-fam{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{display:flex;align-items:center;gap:3px;padding:3px 7px 3px 4px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid transparent;cursor:pointer;transition:all .12s}
+.chip:hover{filter:brightness(1.2)}
+.chip.alive{background:rgba(0,184,148,.18);border-color:rgba(0,184,148,.25)}
+.chip.star{background:rgba(245,200,66,.12);border-color:rgba(245,200,66,.3)}
+.chip.out{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.06);color:var(--out);text-decoration:line-through;text-decoration-color:var(--red)}
+.chip-flag{font-size:14px;line-height:1}
+.chip-pts{font-size:9px;padding:1px 3px;border-radius:3px;background:rgba(245,200,66,.2);color:var(--gold);margin-left:2px;font-weight:700}
+.score-n{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;line-height:1;text-align:right}
+.score-n.lead{color:var(--gold)}
+.score-l{font-size:9px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.07em;text-align:right;margin-top:2px}
+.edit-hint{font-size:9px;color:var(--gold);opacity:.7;margin-left:5px}
+.board-foot{text-align:center;font-size:11px;color:rgba(255,255,255,.2);margin-top:14px;padding-bottom:4px}
+.stats-toggle{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;margin:12px 0 0;font-size:13px;font-weight:600;color:rgba(255,255,255,.6);font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.stats-toggle .arr{transition:transform .2s;font-size:16px}
+.stats-toggle.open .arr{transform:rotate(180deg)}
+.stats-panel{display:none;margin-top:6px}
+.stats-panel.open{display:block}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.stat-cell{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.stat-val{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:var(--gold);line-height:1}
+.stat-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px}
+.stat-sub{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);margin-top:2px}
+.family-bars{display:flex;flex-direction:column;gap:6px}
+.fam-bar-row{display:flex;align-items:center;gap:10px}
+.fam-bar-lbl{font-size:12px;color:rgba(255,255,255,.6);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fam-bar-track{flex:1;background:rgba(255,255,255,.08);border-radius:4px;height:8px;overflow:hidden}
+.fam-bar-fill{height:100%;background:var(--gold);border-radius:4px;transition:width .5s}
+.fam-bar-pts{font-size:11px;color:var(--gold);font-weight:700;min-width:28px;text-align:right}
+.predict-intro{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px}
+.match-card{background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.match-label{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-family:'Barlow Condensed',sans-serif}
+.match-teams{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+.match-team{text-align:center;flex:1}
+.match-flag{font-size:28px;line-height:1;margin-bottom:4px}
+.match-name{font-size:13px;font-weight:600}
+.match-vs{font-size:16px;color:rgba(255,255,255,.3);font-family:'Barlow Condensed',sans-serif;font-weight:700}
+.pick-btns{display:flex;gap:6px}
+.pick-btn{flex:1;padding:8px 4px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;font-family:inherit}
+.pick-btn.selected{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.predict-locked{font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-top:6px}
+.pred-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.pred-row:last-child{border-bottom:none}
+.pred-name{font-weight:600}
+.pred-pts{color:var(--gold);font-weight:700;font-family:'Barlow Condensed',sans-serif;font-size:15px}
+.vibe-card{background:linear-gradient(135deg,rgba(74,144,217,.15),rgba(155,89,182,.15));border:1px solid rgba(74,144,217,.3);border-radius:12px;padding:18px;margin-bottom:12px}
+.vibe-q{font-size:18px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.vibe-sub{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:16px}
+.vibe-opt{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--white);font-size:14px;font-weight:500;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit;display:block;margin-bottom:8px}
+.vibe-opt:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.1)}
+.vibe-opt.voted{border-color:var(--gold);background:var(--gold-bg);color:var(--gold)}
+.vibe-result-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.vibe-result-lbl{font-size:12px;flex:1}
+.vibe-result-track{flex:1;background:rgba(255,255,255,.08);border-radius:4px;height:8px;overflow:hidden}
+.vibe-result-fill{height:100%;border-radius:4px;background:var(--gold);transition:width .6s}
+.vibe-result-pct{font-size:12px;color:var(--gold);font-weight:700;min-width:36px;text-align:right}
+.vibe-result-count{font-size:11px;color:rgba(255,255,255,.35);margin-top:10px;text-align:center}
+.vibe-hist-card{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:8px;padding:12px;margin-bottom:8px}
+.vibe-hist-q{font-size:13px;font-weight:600;margin-bottom:8px}
+.fact-sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:150;display:flex;align-items:flex-end;justify-content:center}
+.fact-sheet{background:#1a3a28;border:1px solid var(--border2);border-radius:20px 20px 0 0;padding:24px 20px 32px;width:100%;max-width:560px;max-height:88vh;overflow-y:auto;position:relative}
+.fact-flag-big{font-size:56px;text-align:center;margin-bottom:8px}
+.fact-country-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:900;text-align:center;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:4px}
+.fact-holder{font-size:13px;color:var(--gold);text-align:center;margin-bottom:20px}
+.fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.fact-cell{background:rgba(0,0,0,.3);border-radius:10px;padding:12px}
+.fact-cell-lbl{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.fact-cell-val{font-size:15px;font-weight:600;line-height:1.3}
+.fact-cell.full{grid-column:span 2}
+.trivia-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);margin-bottom:10px}
+.trivia-q{background:rgba(0,0,0,.3);border-radius:10px;padding:14px;margin-bottom:8px}
+.trivia-q-text{font-size:14px;font-weight:600;margin-bottom:10px;line-height:1.4}
+.trivia-opts{display:flex;flex-direction:column;gap:6px}
+.trivia-opt{padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:rgba(255,255,255,.8);font-size:13px;cursor:pointer;text-align:left;transition:all .15s;font-family:inherit}
+.trivia-opt:hover{border-color:rgba(255,255,255,.3)}
+.trivia-opt.correct{background:rgba(0,184,148,.2);border-color:var(--green);color:var(--green)}
+.trivia-opt.wrong{background:rgba(214,48,49,.15);border-color:var(--red);color:var(--red)}
+.trivia-opt:disabled{cursor:not-allowed}
+.trivia-pts-earned{font-size:13px;color:var(--gold);font-weight:700;text-align:center;margin-top:8px;min-height:20px}
+.fact-close{position:absolute;top:16px;right:16px;font-size:24px;color:rgba(255,255,255,.5);cursor:pointer;background:none;border:none;line-height:1}
+.compose{background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:12px;padding:14px;margin-bottom:12px;margin-top:12px}
+.c-sublbl{font-size:11px;color:rgba(255,255,255,.4);margin-bottom:6px}
+.react-row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.react-btn{font-size:18px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:4px 7px;cursor:pointer;transition:all .12s}
 .react-btn.sel{border-color:var(--gold);background:var(--gold-bg)}
 textarea{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--white);font-size:14px;padding:10px 12px;resize:none;outline:none;font-family:inherit}
 textarea::placeholder{color:rgba(255,255,255,.25)}
 .c-footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
 .char-c{font-size:11px;color:rgba(255,255,255,.25)}
-.btn-post{padding:8px 20px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:13px;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.btn-post{padding:8px 18px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:13px;font-weight:700;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
 .btn-post:disabled{background:rgba(255,255,255,.1);color:rgba(255,255,255,.3);cursor:not-allowed}
-.empty-chat{text-align:center;padding:40px 20px;color:rgba(255,255,255,.25);font-size:14px}
-.empty-icon{font-size:32px;margin-bottom:8px}
-.c-card{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px}
-.c-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.c-who{display:flex;align-items:center;gap:8px}
-.c-emoji{font-size:20px}
-.c-name{font-size:14px;font-weight:700;color:var(--gold);font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
-.c-time{font-size:11px;color:rgba(255,255,255,.25)}
-.c-text{font-size:14px;color:rgba(255,255,255,.85);line-height:1.5}
-
-/* MODALS */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
-.modal{background:#1a2e20;border:1px solid var(--border2);border-radius:16px;padding:24px;width:100%;max-width:340px}
-.m-title{font-size:18px;font-weight:700;margin-bottom:6px;font-family:'Barlow Condensed',sans-serif}
-.m-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px}
+.c-card{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:7px}
+.c-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.c-who{display:flex;align-items:center;gap:7px}
+.c-emoji{font-size:18px}
+.c-name{font-size:13px;font-weight:700;color:var(--gold);font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.c-time{font-size:10px;color:rgba(255,255,255,.25)}
+.c-text{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5}
+.photo-compose{background:rgba(0,0,0,.4);border:1px solid var(--border2);border-radius:12px;padding:14px;margin-bottom:12px;margin-top:12px}
+.photo-drop{border:2px dashed rgba(255,255,255,.2);border-radius:10px;padding:24px 16px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:10px;position:relative}
+.photo-drop:hover{border-color:var(--gold);background:rgba(245,200,66,.04)}
+.photo-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.photo-drop-icon{font-size:28px;margin-bottom:6px}
+.photo-drop-text{font-size:13px;color:rgba(255,255,255,.5)}
+.photo-drop-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:3px}
+.photo-preview{width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-bottom:10px;display:none}
+.photo-caption{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:var(--white);font-size:14px;padding:9px 12px;outline:none;font-family:inherit;margin-bottom:10px}
+.photo-caption::placeholder{color:rgba(255,255,255,.25)}
+.upload-progress{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-bottom:10px;overflow:hidden;display:none}
+.upload-bar{height:100%;background:var(--gold);border-radius:2px;transition:width .3s;width:0}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.photo-card{background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.photo-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:pointer}
+.photo-card-info{padding:8px 10px}
+.photo-card-name{font-size:12px;font-weight:700;color:var(--gold);font-family:'Barlow Condensed',sans-serif}
+.photo-card-caption{font-size:11px;color:rgba(255,255,255,.65);margin-top:2px;line-height:1.4}
+.photo-card-time{font-size:10px;color:rgba(255,255,255,.25);margin-top:3px}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:#1a2e20;border:1px solid var(--border2);border-radius:16px;padding:22px;width:100%;max-width:340px}
+.m-title{font-size:18px;font-weight:700;margin-bottom:5px;font-family:'Barlow Condensed',sans-serif}
+.m-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:14px}
 .pin-in{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;color:var(--white);font-size:24px;font-weight:700;text-align:center;padding:10px 12px;letter-spacing:.2em;outline:none}
 .pin-in.err{border-color:var(--red)}
-.pin-err{font-size:12px;color:var(--red);margin-top:6px;text-align:center;display:none}
-.m-actions{display:flex;gap:10px;margin-top:16px}
-.btn-cancel{flex:1;padding:12px;background:transparent;border:1px solid var(--border);border-radius:8px;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:inherit}
-.btn-unlock{flex:2;padding:12px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:15px;font-weight:700;cursor:pointer}
-
-/* EDIT SHEET */
-.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;display:flex;align-items:flex-end;justify-content:center}
-.sheet{background:#1a2e20;border:1px solid var(--border2);border-radius:16px 16px 0 0;padding:20px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto}
-.s-title{font-size:20px;font-weight:700;margin-bottom:16px;font-family:'Barlow Condensed',sans-serif}
-.e-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);gap:12px}
+.pin-err{font-size:12px;color:var(--red);margin-top:5px;text-align:center;display:none}
+.m-actions{display:flex;gap:10px;margin-top:14px}
+.btn-cancel{flex:1;padding:11px;background:transparent;border:1px solid var(--border);border-radius:8px;color:rgba(255,255,255,.4);font-size:14px;cursor:pointer;font-family:inherit}
+.btn-unlock{flex:2;padding:11px;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:15px;font-weight:700;cursor:pointer}
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:#1a2e20;border:1px solid var(--border2);border-radius:18px 18px 0 0;padding:20px;width:100%;max-width:520px;max-height:88vh;overflow-y:auto}
+.s-title{font-size:20px;font-weight:700;margin-bottom:14px;font-family:'Barlow Condensed',sans-serif}
+.e-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);gap:12px}
 .e-row:last-of-type{border-bottom:none}
-.e-ctry{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:500;flex:1}
-.pts-in{width:62px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:var(--white);font-size:20px;font-weight:700;text-align:center;padding:4px 6px;outline:none}
-.elim-btn{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--white);font-size:16px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.e-ctry{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;flex:1}
+.pts-in{width:60px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:var(--white);font-size:20px;font-weight:700;text-align:center;padding:4px 5px;outline:none}
+.elim-btn{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:var(--white);font-size:14px;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
 .elim-btn.on{background:var(--red);border-color:var(--red)}
-.s-actions{display:flex;gap:10px;margin-top:18px}
-.btn-save{flex:1;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:16px;font-weight:700;cursor:pointer;padding:12px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
-
-/* SETUP */
-.setup{background:rgba(213,89,45,.12);border:1px solid rgba(213,89,45,.3);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:13px;line-height:1.7;color:rgba(255,255,255,.8);display:none}
-.setup strong{color:var(--gold)}
-.setup a{color:var(--gold)}
-.setup ol{padding-left:18px;margin-top:6px}
-
-/* LOADING */
+.s-actions{display:flex;gap:10px;margin-top:16px}
+.btn-save{flex:1;background:var(--gold);border:none;border-radius:8px;color:#111;font-size:15px;font-weight:700;cursor:pointer;padding:11px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:300;display:none;align-items:center;justify-content:center;padding:16px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:88vh;object-fit:contain;border-radius:8px}
+.lightbox-close{position:absolute;top:14px;right:14px;font-size:26px;color:rgba(255,255,255,.6);cursor:pointer;background:none;border:none}
+.setup{background:rgba(213,89,45,.12);border:1px solid rgba(213,89,45,.3);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:13px;line-height:1.6;color:rgba(255,255,255,.8);display:none}
+.setup strong{color:var(--gold)}.setup a{color:var(--gold)}
 #loading{position:fixed;inset:0;background:var(--pitch);display:flex;align-items:center;justify-content:center;z-index:999}
 .spin{color:var(--gold);font-family:'Barlow Condensed',sans-serif;font-size:20px;letter-spacing:.1em}
 </style>
 </head>
 <body>
-
 <div id="loading"><div class="spin">LOADING BRACKET...</div></div>
 
 <header>
   <div class="eyebrow">⚽ 2026 FIFA World Cup</div>
   <h1>Randall Family<br>Bracket</h1>
   <div class="header-sub">USA · Canada · Mexico · June 11 – July 19</div>
-  <div class="live-pill">
-    <span class="live-dot"></span>
-    <span class="live-text" id="lastUpdated">Jun 11 · MEX 2–0 RSA · KOR 2–1 CZE</span>
-  </div>
+  <div class="live-pill"><span class="live-dot"></span><span class="live-text" id="lastUpdated">Jun 11 · MEX 2–0 RSA · KOR 2–1 CZE</span></div>
 </header>
 
 <div class="wrap">
   <div class="admin-bar">
     <span class="admin-lbl">Admin</span>
-    <button class="btn-admin" id="adminBtn" onclick="toggleAdmin()">Edit Scores</button>
+    <button class="btn-sm" id="adminBtn">Edit Scores</button>
   </div>
   <div class="toast" id="toast"></div>
-
-  <div class="setup" id="setup">
-    ⚠️ <strong>Almost there!</strong> To sync scores and comments across all devices, connect Firebase (free):
-    <ol>
-      <li>Go to <a href="https://console.firebase.google.com/" target="_blank">console.firebase.google.com</a></li>
-      <li>Create a project → Add a web app → copy the config</li>
-      <li>Paste it into this file where it says <strong>PASTE_CONFIG_HERE</strong></li>
-      <li>In Firestore rules, set read/write to <strong>true</strong> for now</li>
-    </ol>
-    Until then, scores save locally and comments won't persist between devices.
-  </div>
+  <div class="setup" id="setup">⚠️ <strong>Connect Firebase for live sync.</strong> Find <strong>FIREBASE_CONFIG = null</strong> and replace with your config. <a href="https://console.firebase.google.com/" target="_blank">Firebase Console →</a></div>
 
   <div class="tabs">
-    <button class="tab active" id="tab-board" onclick="switchTab('board')">🏆 Leaderboard</button>
-    <button class="tab" id="tab-chat" onclick="switchTab('chat')">💬 Family Chat <span class="badge" id="badge"></span></button>
+    <button class="tab active" id="tab-board">🏆 Board</button>
+    <button class="tab" id="tab-predict">🎯 Predict</button>
+    <button class="tab" id="tab-vibe">🗳️ Vibe</button>
+    <button class="tab" id="tab-photos">📸 Photos <span class="badge" id="photoBadge"></span></button>
+    <button class="tab" id="tab-chat">💬 Chat <span class="badge" id="chatBadge"></span></button>
   </div>
 
-  <!-- LEADERBOARD -->
+  <!-- BOARD -->
   <div id="pane-board">
-    <div class="legend">
-      <span>🟢 Still alive</span><span>⭐ Contender</span><span>⚫ Eliminated</span>
-    </div>
+    <div class="legend"><span>🟢 Alive</span><span>⭐ Contender</span><span>⚫ Out</span><span style="font-size:11px;color:rgba(255,255,255,.35)">Tap a country for facts + trivia</span></div>
     <div class="board" id="board"></div>
-    <div class="board-foot">Randall Family Bracket · WC2026 · All 48 countries covered</div>
+    <button class="stats-toggle" id="statsToggle">📊 Family Head-to-Head <span class="arr">▾</span></button>
+    <div class="stats-panel" id="statsPanel"></div>
+    <div class="board-foot">Randall Family Bracket · WC2026 · All 48 countries</div>
+  </div>
+
+  <!-- PREDICT -->
+  <div id="pane-predict" style="display:none">
+    <div class="section-card" style="margin-top:12px">
+      <div class="sec-title">🎯 Match Predictions</div>
+      <p class="predict-intro">Pick the winner before kickoff. Correct winner = 1pt. Exact score = 5pts.</p>
+      <div class="c-sublbl">Who are you?</div>
+      <div class="name-grid" id="predictNameGrid"></div>
+    </div>
+    <div id="matchCards"></div>
+    <div class="section-card" style="margin-top:4px">
+      <div class="sec-title">📈 Prediction Leaderboard</div>
+      <div id="predictLeaderboard"></div>
+    </div>
+    <div class="section-card" style="margin-top:4px">
+      <div class="sec-title">🔮 Tournament Predictions</div>
+      <p style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:12px">One-time picks for the whole tournament. Points revealed at the end!</p>
+      <div class="c-sublbl">Who are you?</div>
+      <div class="name-grid" id="tournamentNameGrid"></div>
+      <div id="tournamentPicks"></div>
+    </div>
+  </div>
+
+  <!-- VIBE -->
+  <div id="pane-vibe" style="display:none">
+    <div style="margin-top:12px" id="vibeToday"></div>
+    <div class="section-card" style="margin-top:4px">
+      <div class="sec-title">📋 Past Vibe Checks</div>
+      <div id="vibeHistory"></div>
+    </div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div id="pane-photos" style="display:none">
+    <div class="photo-compose">
+      <div class="sec-title">📸 Share a Photo</div>
+      <div class="c-sublbl">Who are you?</div>
+      <div class="name-grid" id="photoNameGrid"></div>
+      <div class="photo-drop" id="photoDrop">
+        <input type="file" accept="image/*" capture="environment" id="photoInput">
+        <div class="photo-drop-icon">📷</div>
+        <div class="photo-drop-text">Tap to take a photo or pick from camera roll</div>
+        <div class="photo-drop-sub">Works on your phone camera too</div>
+      </div>
+      <img class="photo-preview" id="photoPreview" alt="preview">
+      <div class="upload-progress" id="uploadProgress"><div class="upload-bar" id="uploadBar"></div></div>
+      <input class="photo-caption" type="text" id="photoCaption" placeholder="Add a caption… (optional)" maxlength="120">
+      <button class="btn-gold" id="uploadBtn" disabled>Share Photo 📤</button>
+    </div>
+    <div class="photo-grid" id="photoGrid"></div>
+    <div class="empty-state" id="photoEmpty" style="display:none"><div class="empty-icon">📸</div>No photos yet — be the first!</div>
   </div>
 
   <!-- CHAT -->
   <div id="pane-chat" style="display:none">
-    <div class="chat-wrap">
-      <div class="compose">
-        <div class="c-lbl">Drop a comment</div>
-        <div class="c-sublbl">Who are you?</div>
-        <div class="name-grid" id="nameGrid"></div>
-        <div class="c-sublbl">Pick a reaction</div>
-        <div class="react-row" id="reactRow"></div>
-        <textarea id="commentInput" rows="2" maxlength="280" placeholder="Talk trash, cheer your team, celebrate or cry..." oninput="onInput()"></textarea>
-        <div class="c-footer">
-          <span class="char-c" id="charCount">0/280</span>
-          <button class="btn-post" id="postBtn" onclick="postComment()" disabled>Post ⚡</button>
-        </div>
-      </div>
-      <div id="feed"></div>
+    <div class="compose">
+      <div class="sec-title">💬 Family Chat</div>
+      <div class="c-sublbl">Who are you?</div>
+      <div class="name-grid" id="chatNameGrid"></div>
+      <div class="c-sublbl">Reaction</div>
+      <div class="react-row" id="reactRow"></div>
+      <textarea id="commentInput" rows="2" maxlength="280" placeholder="Talk trash, cheer your team, celebrate or cry…"></textarea>
+      <div class="c-footer"><span class="char-c" id="charCount">0/280</span><button class="btn-post" id="postBtn" disabled>Post ⚡</button></div>
     </div>
+    <div id="feed"></div>
   </div>
+</div>
+
+<!-- COUNTRY FACT SHEET -->
+<div class="fact-sheet-bg" id="factSheetBg" style="display:none">
+  <div class="fact-sheet" id="factSheet">
+    <button class="fact-close" id="factCloseBtn">✕</button>
+    <div class="fact-flag-big" id="factFlag"></div>
+    <div class="fact-country-name" id="factName"></div>
+    <div class="fact-holder" id="factHolder"></div>
+    <div class="fact-grid" id="factGrid"></div>
+    <div id="triviaSection"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="">
 </div>
 
 <!-- PIN MODAL -->
@@ -199,11 +319,11 @@ textarea::placeholder{color:rgba(255,255,255,.25)}
   <div class="modal">
     <div class="m-title">Admin Access</div>
     <div class="m-sub">Enter your PIN to edit scores</div>
-    <input class="pin-in" type="password" id="pinInput" placeholder="····" onkeydown="if(event.key==='Enter')checkPin()">
-    <div class="pin-err" id="pinErr">Incorrect PIN — try again</div>
+    <input class="pin-in" type="password" id="pinInput" placeholder="····">
+    <div class="pin-err" id="pinErr">Incorrect PIN</div>
     <div class="m-actions">
-      <button class="btn-cancel" onclick="closePinModal()">Cancel</button>
-      <button class="btn-unlock" onclick="checkPin()">Unlock</button>
+      <button class="btn-cancel" id="pinCancelBtn">Cancel</button>
+      <button class="btn-unlock" id="pinUnlockBtn">Unlock</button>
     </div>
   </div>
 </div>
@@ -214,16 +334,17 @@ textarea::placeholder{color:rgba(255,255,255,.25)}
     <div class="s-title" id="sheetTitle">Edit</div>
     <div id="sheetBody"></div>
     <div class="s-actions">
-      <button class="btn-cancel" onclick="closeSheet()">Cancel</button>
-      <button class="btn-save" onclick="saveEdit()">Save & Publish</button>
+      <button class="btn-cancel" id="sheetCancelBtn">Cancel</button>
+      <button class="btn-save" id="sheetSaveBtn">Save & Publish</button>
     </div>
   </div>
 </div>
 
-<script>
-// ─── FIREBASE (optional — paste config to enable live sync) ──────
-// To enable: replace null with your Firebase config object
-// Get it from Firebase Console → Project Settings → Your apps → SDK setup
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ── PASTE YOUR FIREBASE CONFIG HERE ──────────────────────────────
 const FIREBASE_CONFIG = {
   apiKey: "AIzaSyCL-V9ZsWKRGL7...",
   authDomain: "fifa-randall.firebaseapp.com",
@@ -232,330 +353,517 @@ const FIREBASE_CONFIG = {
   messagingSenderId: "267555747296",
   appId: "1:267555747296:web:8dd53839267ee7778ba785",
   measurementId: "G-ES3SZ439RD"
-};
-
-
-// ─── DATA ─────────────────────────────────────────────────────────
+}
 const PIN = "1234";
 
 const C = {
-  "Brazil":{f:"🇧🇷",s:true},"Germany":{f:"🇩🇪",s:true},"Argentina":{f:"🇦🇷",s:true},
-  "France":{f:"🇫🇷",s:true},"Spain":{f:"🇪🇸",s:true},"Portugal":{f:"🇵🇹",s:true},
-  "England":{f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",s:true},"Netherlands":{f:"🇳🇱",s:false},"Colombia":{f:"🇨🇴",s:false},
-  "Qatar":{f:"🇶🇦",s:false},"Japan":{f:"🇯🇵",s:false},"Uzbekistan":{f:"🇺🇿",s:false},
-  "Uruguay":{f:"🇺🇾",s:false},"Norway":{f:"🇳🇴",s:false},"Australia":{f:"🇦🇺",s:false},
-  "Switzerland":{f:"🇨🇭",s:false},"Haiti":{f:"🇭🇹",s:false},"South Korea":{f:"🇰🇷",s:false},
-  "Jordan":{f:"🇯🇴",s:false},"Türkiye":{f:"🇹🇷",s:false},"Ecuador":{f:"🇪🇨",s:false},
-  "Iran":{f:"🇮🇷",s:false},"Morocco":{f:"🇲🇦",s:false},"DR Congo":{f:"🇨🇩",s:false},
-  "Ivory Coast":{f:"🇨🇮",s:false},"Curaçao":{f:"🇨🇼",s:false},"Senegal":{f:"🇸🇳",s:false},
-  "Canada":{f:"🇨🇦",s:false},"Paraguay":{f:"🇵🇾",s:false},"Croatia":{f:"🇭🇷",s:false},
-  "Panama":{f:"🇵🇦",s:false},"USA":{f:"🇺🇸",s:false},"Belgium":{f:"🇧🇪",s:false},
-  "Algeria":{f:"🇩🇿",s:false},"South Africa":{f:"🇿🇦",s:false},"Sweden":{f:"🇸🇪",s:false},
-  "Mexico":{f:"🇲🇽",s:false},"Saudi Arabia":{f:"🇸🇦",s:false},"Cape Verde":{f:"🇨🇻",s:false},
-  "Ghana":{f:"🇬🇭",s:false},"Iraq":{f:"🇮🇶",s:false},"Bosnia & Herz.":{f:"🇧🇦",s:false},
-  "Austria":{f:"🇦🇹",s:false},"Tunisia":{f:"🇹🇳",s:false},"Egypt":{f:"🇪🇬",s:false},
-  "Scotland":{f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",s:false},"New Zealand":{f:"🇳🇿",s:false},"Czechia":{f:"🇨🇿",s:false}
+  "Brazil":{f:"🇧🇷",s:true,cap:"Brasília",pop:"215M",star:"Vinícius Jr.",wc:"5x Champions",fact:"Brazil is the only team to play in every single World Cup — all 22 of them."},
+  "Germany":{f:"🇩🇪",s:true,cap:"Berlin",pop:"84M",star:"Jamal Musiala",wc:"4x Champions",fact:"Germany once scored 7 goals against Brazil in a World Cup semifinal — in Brazil."},
+  "Argentina":{f:"🇦🇷",s:true,cap:"Buenos Aires",pop:"46M",star:"Lionel Messi",wc:"3x Champions",fact:"Argentina won the 2022 World Cup — Messi's first title after 4 finals. Worth the wait."},
+  "France":{f:"🇫🇷",s:true,cap:"Paris",pop:"68M",star:"Kylian Mbappé",wc:"2x Champions",fact:"France's 1998 World Cup squad included players from 11 different countries of origin."},
+  "Spain":{f:"🇪🇸",s:true,cap:"Madrid",pop:"47M",star:"Pedri",wc:"1x Champion",fact:"Spain won the 2024 Euros too — they are the most dominant international team of the era."},
+  "Portugal":{f:"🇵🇹",s:true,cap:"Lisbon",pop:"10M",star:"Cristiano Ronaldo",wc:"Best: 3rd (1966)",fact:"Ronaldo is the all-time World Cup top scorer for Portugal. This may be his final tournament."},
+  "England":{f:"🏴󠁧󠁢󠁥󠁮󠁧󠁿",s:true,cap:"London",pop:"57M",star:"Jude Bellingham",wc:"1x Champion (1966)",fact:"England invented football but has won the World Cup only once — on home soil in 1966."},
+  "Netherlands":{f:"🇳🇱",s:false,cap:"Amsterdam",pop:"18M",star:"Virgil van Dijk",wc:"3x Runners-up",fact:"The Netherlands have lost three World Cup finals — 1974, 1978, and 2010 — without ever winning."},
+  "Colombia":{f:"🇨🇴",s:false,cap:"Bogotá",pop:"52M",star:"Luis Díaz",wc:"Best: QF 2014",fact:"Colombia's James Rodríguez won the Golden Boot at the 2014 World Cup with 6 goals in 5 games."},
+  "Qatar":{f:"🇶🇦",s:false,cap:"Doha",pop:"3M",star:"Akram Afif",wc:"Debut: 2022",fact:"Qatar became the first host nation to be eliminated in the group stage at the 2022 World Cup."},
+  "Japan":{f:"🇯🇵",s:false,cap:"Tokyo",pop:"125M",star:"Takefusa Kubo",wc:"Best: R16",fact:"Japan beat both Germany and Spain at the 2022 World Cup — two former champions in one group."},
+  "Uzbekistan":{f:"🇺🇿",s:false,cap:"Tashkent",pop:"36M",star:"Eldor Shomurodov",wc:"Debut: 2026",fact:"Uzbekistan is making their World Cup debut! Their national color is blue and their symbol is the sun."},
+  "Uruguay":{f:"🇺🇾",s:false,cap:"Montevideo",pop:"3.5M",star:"Darwin Núñez",wc:"2x Champions",fact:"Uruguay won the very first World Cup in 1930 — they hosted it and beat Argentina in the final."},
+  "Norway":{f:"🇳🇴",s:false,cap:"Oslo",pop:"5.5M",star:"Erling Haaland",wc:"Best: QF 1938",fact:"Erling Haaland is one of the most feared strikers alive. Norway hopes he's their golden ticket."},
+  "Australia":{f:"🇦🇺",s:false,cap:"Canberra",pop:"26M",star:"Mathew Ryan",wc:"Best: QF 2006",fact:"Australia's nickname is the Socceroos. Their greatest WC run was 2006 when they reached the quarterfinals."},
+  "Switzerland":{f:"🇨🇭",s:false,cap:"Bern",pop:"8.7M",star:"Granit Xhaka",wc:"Best: QF multiple",fact:"Switzerland hasn't lost a World Cup group stage game when they score first. Solid and sneaky."},
+  "Haiti":{f:"🇭🇹",s:false,cap:"Port-au-Prince",pop:"11M",star:"Duckens Nazon",wc:"Only WC: 1974",fact:"Haiti's only World Cup was 1974. Their national anthem is considered one of the most beautiful ever written."},
+  "South Korea":{f:"🇰🇷",s:false,cap:"Seoul",pop:"52M",star:"Son Heung-min",wc:"Best: 4th (2002)",fact:"South Korea co-hosted 2002 and made it to the semifinals — the first Asian team to ever do so."},
+  "Jordan":{f:"🇯🇴",s:false,cap:"Amman",pop:"10M",star:"Musa Al-Taamari",wc:"Debut: 2026",fact:"Jordan is making their World Cup debut in 2026. Their flag's red, white, black and green carry deep meaning."},
+  "Türkiye":{f:"🇹🇷",s:false,cap:"Ankara",pop:"85M",star:"Hakan Çalhanoğlu",wc:"Best: 3rd (2002)",fact:"Turkey finished 3rd at the 2002 World Cup — one of the biggest surprises in the tournament's history."},
+  "Ecuador":{f:"🇪🇨",s:false,cap:"Quito",pop:"18M",star:"Moisés Caicedo",wc:"Best: R16 (2006)",fact:"Ecuador's capital Quito sits at 2,850m altitude. Visiting teams literally struggle to breathe there."},
+  "Iran":{f:"🇮🇷",s:false,cap:"Tehran",pop:"89M",star:"Mehdi Taremi",wc:"Best: Group stage",fact:"Iran beat the USA 2-1 in 1998 — one of the most politically charged games in World Cup history."},
+  "Morocco":{f:"🇲🇦",s:false,cap:"Rabat",pop:"37M",star:"Achraf Hakimi",wc:"Best: SF (2022)",fact:"Morocco became the first African and Arab team to reach a World Cup semifinal in 2022."},
+  "DR Congo":{f:"🇨🇩",s:false,cap:"Kinshasa",pop:"102M",star:"Cédric Bakambu",wc:"Only WC: 1974",fact:"As Zaire in 1974, a defender famously ran out of the wall and kicked a free kick before it was taken."},
+  "Ivory Coast":{f:"🇨🇮",s:false,cap:"Yamoussoukro",pop:"27M",star:"Sébastien Haller",wc:"Best: Group stage",fact:"Ivory Coast was drawn with Greece, Colombia and Japan in 2014 — fans called it the Group of Death."},
+  "Curaçao":{f:"🇨🇼",s:false,cap:"Willemstad",pop:"155K",star:"Leandro Bacuna",wc:"Debut: 2026",fact:"Curaçao is a tiny Caribbean island of just 155,000 people. Their World Cup debut is a massive moment!"},
+  "Senegal":{f:"🇸🇳",s:false,cap:"Dakar",pop:"17M",star:"Sadio Mané",wc:"Best: QF (2002)",fact:"Senegal's very first World Cup game was a 1-0 win over France — the defending champions."},
+  "Canada":{f:"🇨🇦",s:false,cap:"Ottawa",pop:"38M",star:"Alphonso Davies",wc:"Best: Group stage",fact:"Canada is co-hosting 2026. They've never won a World Cup game. This is their chance to change history."},
+  "Paraguay":{f:"🇵🇾",s:false,cap:"Asunción",pop:"7.4M",star:"Miguel Almirón",wc:"Best: QF (2010)",fact:"Paraguay reached the 2010 quarterfinals where they were knocked out by Spain — the eventual champions."},
+  "Croatia":{f:"🇭🇷",s:false,cap:"Zagreb",pop:"4M",star:"Luka Modrić",wc:"Best: RU (2018)",fact:"Croatia, population 4 million, reached the 2018 World Cup final and the 2022 semifinal. Incredible."},
+  "Panama":{f:"🇵🇦",s:false,cap:"Panama City",pop:"4.4M",star:"Adalberto Carrasquilla",wc:"Best: Group stage",fact:"Panama qualified for their first World Cup in 2018. Their whole country celebrated in the streets."},
+  "USA":{f:"🇺🇸",s:false,cap:"Washington DC",pop:"335M",star:"Christian Pulisic",wc:"Best: 3rd (1930)",fact:"The USA co-hosts 2026 and will host all games from the quarterfinals onward — including the final."},
+  "Belgium":{f:"🇧🇪",s:false,cap:"Brussels",pop:"11.6M",star:"Romelu Lukaku",wc:"Best: 3rd (1986,2018)",fact:"Belgium's golden generation of 2018 reached the semifinals — considered the best team never to win it."},
+  "Algeria":{f:"🇩🇿",s:false,cap:"Algiers",pop:"45M",star:"Riyad Mahrez",wc:"Best: R16 (2014)",fact:"Algeria's 2014 World Cup run ended in extra time against Germany — the eventual champions."},
+  "South Africa":{f:"🇿🇦",s:false,cap:"Pretoria",pop:"60M",star:"Percy Tau",wc:"Host 2010",fact:"South Africa hosted the 2010 World Cup — the first ever on African soil. Vuvuzelas changed everything."},
+  "Sweden":{f:"🇸🇪",s:false,cap:"Stockholm",pop:"10.5M",star:"Viktor Gyökeres",wc:"Best: 3rd (1994)",fact:"Sweden's Viktor Gyökeres scored 54 goals in 2023-24 — one of the most prolific seasons in European football."},
+  "Mexico":{f:"🇲🇽",s:false,cap:"Mexico City",pop:"130M",star:"Raúl Jiménez",wc:"Best: QF (1970,1986)",fact:"Mexico's Estadio Azteca has hosted two World Cup finals — the only stadium in history to do so."},
+  "Saudi Arabia":{f:"🇸🇦",s:false,cap:"Riyadh",pop:"36M",star:"Salem Al-Dawsari",wc:"Best: R16 (1994)",fact:"Saudi Arabia beat Argentina 2-1 at the 2022 World Cup — one of the greatest upsets of all time."},
+  "Cape Verde":{f:"🇨🇻",s:false,cap:"Praia",pop:"560K",star:"Ryan Mendes",wc:"Debut: 2026",fact:"Cape Verde is an archipelago of 10 volcanic islands off West Africa. Smaller population than Salt Lake City."},
+  "Ghana":{f:"🇬🇭",s:false,cap:"Accra",pop:"33M",star:"Mohammed Kudus",wc:"Best: QF (2010)",fact:"Ghana's 2010 run ended when Asamoah Gyan missed a last-minute penalty that would've made history."},
+  "Iraq":{f:"🇮🇶",s:false,cap:"Baghdad",pop:"42M",star:"Aymen Hussein",wc:"Only WC: 1986",fact:"Iraq's only World Cup was 1986. Their 2026 debut is 40 years in the making."},
+  "Bosnia & Herz.":{f:"🇧🇦",s:false,cap:"Sarajevo",pop:"3.5M",star:"Edin Džeko",wc:"Best: Group stage (2014)",fact:"Bosnia qualified for their first World Cup in 2014. Legend Edin Džeko has been their captain for a decade."},
+  "Austria":{f:"🇦🇹",s:false,cap:"Vienna",pop:"9.1M",star:"Marcel Sabitzer",wc:"Best: 3rd (1954)",fact:"Austria's 1950s team was one of the best in the world — called the Wunderteam by fans."},
+  "Tunisia":{f:"🇹🇳",s:false,cap:"Tunis",pop:"12M",star:"Hannibal Mejbri",wc:"Best: Group stage",fact:"Tunisia was the first African country to win a World Cup game — beating Mexico 3-1 in 1978."},
+  "Egypt":{f:"🇪🇬",s:false,cap:"Cairo",pop:"105M",star:"Mohamed Salah",wc:"Only modern WC: 1990",fact:"Egypt has the most Africa Cup of Nations titles (7) but has appeared in the World Cup only 3 times."},
+  "Scotland":{f:"🏴󠁧󠁢󠁳󠁣󠁴󠁿",s:false,cap:"Edinburgh",pop:"5.5M",star:"Andy Robertson",wc:"Best: Group stage",fact:"Scotland has never made it past the group stage despite qualifying 8 times. Heartbreak is their brand."},
+  "New Zealand":{f:"🇳🇿",s:false,cap:"Wellington",pop:"5.1M",star:"Chris Wood",wc:"Best: Group stage",fact:"New Zealand's national team is called the All Whites — a nod to their rugby counterparts the All Blacks."},
+  "Czechia":{f:"🇨🇿",s:false,cap:"Prague",pop:"10.9M",star:"Tomáš Souček",wc:"Best: RU (as Czechoslovakia)",fact:"Czechoslovakia (now Czechia) reached the World Cup final twice — 1934 and 1962."}
 };
 
-const DEFAULT = [
-  {n:"Becky",  fam:"Becky",             cc:["Brazil"],                         pts:{Brazil:0},                              e:{Brazil:false}},
-  {n:"Janell", fam:"Janell's family",   cc:["Germany"],                        pts:{Germany:0},                             e:{Germany:false}},
-  {n:"Trent",  fam:"Janell's family",   cc:["Colombia","Qatar"],               pts:{Colombia:0,Qatar:0},                    e:{Colombia:false,Qatar:false}},
-  {n:"Addi",   fam:"Janell's family",   cc:["Japan","Uzbekistan"],             pts:{Japan:0,Uzbekistan:0},                  e:{Japan:false,Uzbekistan:false}},
-  {n:"Sadie",  fam:"Janell's family",   cc:["Uruguay"],                        pts:{Uruguay:0},                             e:{Uruguay:false}},
-  {n:"Kaysen", fam:"Janell's family",   cc:["Norway"],                         pts:{Norway:0},                              e:{Norway:false}},
-  {n:"Becca",  fam:"Janell's family",   cc:["Australia"],                      pts:{Australia:0},                           e:{Australia:false}},
-  {n:"Collete",fam:"Collete's family",  cc:["Switzerland","Haiti"],            pts:{Switzerland:0,Haiti:0},                 e:{Switzerland:false,Haiti:false}},
-  {n:"Dan",    fam:"Collete's family",  cc:["Portugal"],                       pts:{Portugal:0},                            e:{Portugal:false}},
-  {n:"Asher",  fam:"Collete's family",  cc:["South Korea","Jordan"],           pts:{"South Korea":1,Jordan:0},              e:{"South Korea":false,Jordan:false}},
-  {n:"Issac",  fam:"Collete's family",  cc:["Türkiye"],                        pts:{"Türkiye":0},                           e:{"Türkiye":false}},
-  {n:"Levi",   fam:"Collete's family",  cc:["Ecuador"],                        pts:{Ecuador:0},                             e:{Ecuador:false}},
-  {n:"Ethan",  fam:"Collete's family",  cc:["Czechia"],                        pts:{Czechia:0},                             e:{Czechia:false}},
-  {n:"Natalie J",fam:"Natalie J's family",cc:["France"],                       pts:{France:0},                              e:{France:false}},
-  {n:"Devin",  fam:"Natalie J's family",cc:["Morocco","DR Congo"],             pts:{Morocco:0,"DR Congo":0},                e:{Morocco:false,"DR Congo":false}},
-  {n:"Ashlyn", fam:"Natalie J's family",cc:["Ivory Coast","Curaçao"],          pts:{"Ivory Coast":0,"Curaçao":0},           e:{"Ivory Coast":false,"Curaçao":false}},
-  {n:"Jada",   fam:"Natalie J's family",cc:["Senegal"],                        pts:{Senegal:0},                             e:{Senegal:false}},
-  {n:"Deakon", fam:"Natalie J's family",cc:["Canada"],                         pts:{Canada:0},                              e:{Canada:false}},
-  {n:"Leo",    fam:"Natalie J's family",cc:["Paraguay"],                       pts:{Paraguay:0},                            e:{Paraguay:false}},
-  {n:"Rachel", fam:"Rachel's family",   cc:["Spain"],                          pts:{Spain:0},                               e:{Spain:false}},
-  {n:"Joe",    fam:"Rachel's family",   cc:["Croatia","Panama"],               pts:{Croatia:0,Panama:0},                    e:{Croatia:false,Panama:false}},
-  {n:"Claire", fam:"Rachel's family",   cc:["USA"],                            pts:{USA:0},                                 e:{USA:false}},
-  {n:"Liam",   fam:"Rachel's family",   cc:["Belgium"],                        pts:{Belgium:0},                             e:{Belgium:false}},
-  {n:"Rand",   fam:"Rachel's family",   cc:["Algeria"],                        pts:{Algeria:0},                             e:{Algeria:false}},
-  {n:"Paige",  fam:"Rachel's family",   cc:["South Africa"],                   pts:{"South Africa":0},                      e:{"South Africa":false}},
-  {n:"Brittany",fam:"Rachel's family",  cc:["Sweden"],                         pts:{Sweden:0},                              e:{Sweden:false}},
-  {n:"Dustin", fam:"Dustin's family",   cc:["Mexico","Saudi Arabia","Cape Verde"],pts:{Mexico:1,"Saudi Arabia":0,"Cape Verde":0},e:{Mexico:false,"Saudi Arabia":false,"Cape Verde":false}},
-  {n:"Natalie R",fam:"Dustin's family", cc:["Ghana","Iraq"],                   pts:{Ghana:0,Iraq:0},                        e:{Ghana:false,Iraq:false}},
-  {n:"Roman",  fam:"Dustin's family",   cc:["Argentina"],                      pts:{Argentina:0},                           e:{Argentina:false}},
-  {n:"Liz",    fam:"Liz's family",      cc:["England"],                        pts:{England:0},                             e:{England:false}},
-  {n:"Vilate", fam:"Liz's family",      cc:["Netherlands","Bosnia & Herz."],   pts:{Netherlands:0,"Bosnia & Herz.":0},      e:{Netherlands:false,"Bosnia & Herz.":false}},
-  {n:"Lilly",  fam:"Liz's family",      cc:["Austria"],                        pts:{Austria:0},                             e:{Austria:false}},
-  {n:"Arvin",  fam:"Liz's family",      cc:["Tunisia","Egypt"],                pts:{Tunisia:0,Egypt:0},                     e:{Tunisia:false,Egypt:false}},
-  {n:"Adrianne",fam:"Liz's family",     cc:["Scotland","New Zealand"],         pts:{Scotland:0,"New Zealand":0},            e:{Scotland:false,"New Zealand":false}}
+const TRIVIA = {
+  "Brazil":[{q:"What is Brazil's nickname?",opts:["The Canaries","The Samba Kings","The Green Giants","Os Guerreiros"],a:0},{q:"How many World Cups has Brazil won?",opts:["3","4","5","6"],a:2},{q:"What color are Brazil's home jerseys?",opts:["Green","Blue","Yellow","White"],a:2}],
+  "Germany":[{q:"What was Germany's biggest World Cup win?",opts:["7-1 vs Brazil","6-0 vs Mexico","8-0 vs Saudi Arabia","5-0 vs Sweden"],a:0},{q:"What is Germany's nickname?",opts:["The Eagles","Die Mannschaft","The Blitzers","The Bundesteam"],a:1},{q:"In what year did Germany last win the World Cup?",opts:["2006","2010","2014","2018"],a:2}],
+  "Argentina":[{q:"Which city is Argentina's capital?",opts:["Córdoba","Mendoza","Buenos Aires","Rosario"],a:2},{q:"What number shirt does Messi wear?",opts:["7","9","10","11"],a:2},{q:"How many World Cups has Argentina won?",opts:["1","2","3","4"],a:2}],
+  "France":[{q:"What animal is on France's badge?",opts:["Eagle","Rooster","Lion","Bear"],a:1},{q:"Who scored for France in the 2018 World Cup final aged just 19?",opts:["Griezmann","Pogba","Mbappé","Kanté"],a:2},{q:"What color are France's home jerseys?",opts:["Red","White","Blue","Black"],a:2}],
+  "Spain":[{q:"What is Spain's famous passing style called?",opts:["Catenaccio","Gegenpressing","Tiki-taka","Total Football"],a:2},{q:"What is Spain's great club rivalry called?",opts:["El Clásico","La Grande","El Derbi","La Final"],a:0},{q:"Spain won the 2010 World Cup in which country?",opts:["Brazil","Germany","South Africa","Russia"],a:2}],
+  "England":[{q:"When did England last win the World Cup?",opts:["1958","1966","1974","1982"],a:1},{q:"Where do England play home games?",opts:["Old Trafford","Anfield","Wembley","Stamford Bridge"],a:2},{q:"What is Jude Bellingham's club team?",opts:["Chelsea","Real Madrid","Man City","PSG"],a:1}],
+  "Mexico":[{q:"What is Mexico's most famous stadium?",opts:["Estadio BBVA","Estadio Azteca","Estadio Guadalajara","Estadio Aztlán"],a:1},{q:"What animal is on the Mexican flag?",opts:["Jaguar","Quetzal","Eagle","Serpent"],a:2},{q:"Mexico's best World Cup result was reaching the:",opts:["Final","Semifinals","Quarterfinals","Round of 16"],a:2}],
+  "USA":[{q:"What year did the USA last host the World Cup before 2026?",opts:["1980","1986","1990","1994"],a:3},{q:"Which city hosts the 2026 World Cup Final?",opts:["Los Angeles","Miami","Dallas","New York/New Jersey"],a:3},{q:"Who is the USA's most famous current player?",opts:["Tyler Adams","Weston McKennie","Christian Pulisic","Josh Sargent"],a:2}],
+  "South Korea":[{q:"What was South Korea's best World Cup result?",opts:["Winners","Runners-up","3rd place","4th place"],a:3},{q:"Son Heung-min plays for which club?",opts:["Arsenal","Chelsea","Tottenham","Man City"],a:2},{q:"South Korea co-hosted the 2002 World Cup with which country?",opts:["China","Japan","North Korea","Australia"],a:1}],
+  "Morocco":[{q:"What is Morocco's capital city?",opts:["Casablanca","Marrakech","Rabat","Fez"],a:2},{q:"What is Morocco's nickname?",opts:["The Atlas Lions","The Desert Eagles","The Sahara Stars","The Red Warriors"],a:0},{q:"Morocco's best World Cup finish was:",opts:["Winners","Runners-up","3rd place","4th place"],a:3}],
+  "Canada":[{q:"What is Canada's most famous soccer player?",opts:["Jonathan David","Alphonso Davies","Cyle Larin","Atiba Hutchinson"],a:1},{q:"What is Canada's national animal?",opts:["Moose","Bear","Beaver","Wolf"],a:2},{q:"Which Canadian city hosts World Cup games?",opts:["Montreal and Calgary","Toronto and Vancouver","Ottawa and Edmonton","Quebec and Winnipeg"],a:1}],
+  "Norway":[{q:"What club does Erling Haaland play for?",opts:["Bayern Munich","PSG","Man City","Real Madrid"],a:2},{q:"What is Norway's capital?",opts:["Stockholm","Copenhagen","Helsinki","Oslo"],a:3},{q:"Norway's national color is:",opts:["Blue","Red","Green","Orange"],a:1}]
+};
+
+const VIBE_QUESTIONS = [
+  {date:"2026-06-12",q:"Will Canada win their first ever World Cup match today?",opts:["Yes! Let's go Canada 🍁","No chance — Bosnia holds them","It'll be a draw","I have no idea but I'm excited"]},
+  {date:"2026-06-13",q:"Who wins: USA or Paraguay tonight?",opts:["USA all the way 🇺🇸","Paraguay upset incoming 🇵🇾","It'll be a draw","Too nervous to guess"]},
+  {date:"2026-06-14",q:"Brazil vs Morocco — who comes out on top?",opts:["Brazil wins easily 🇧🇷","Morocco causes an upset 🇲🇦","Super tight game","Last-minute winner drama"]},
+  {date:"2026-06-15",q:"Which contender will be first eliminated from the tournament?",opts:["Belgium 🇧🇪","Portugal 🇵🇹","Netherlands 🇳🇱","Germany 🇩🇪"]},
+  {date:"2026-06-16",q:"Will Messi score for Argentina today?",opts:["Yes — he always delivers ⚡","No — saving himself","He'll assist but not score","Wrong tournament for Messi"]},
+  {date:"2026-06-17",q:"How is the Randall family feeling about their countries?",opts:["Loving my team 🔥","Nervous wreck 😬","Already given up 😭","Living for the drama 👑"]},
+  {date:"2026-06-18",q:"Biggest surprise of the tournament so far?",opts:["A major upset result","A star player flopping","All the red cards","How much I care about soccer now"]},
+  {date:"2026-06-19",q:"Who is the Randall family secret dark horse?",opts:["Japan 🇯🇵","Morocco 🇲🇦","Colombia 🇨🇴","Australia 🇦🇺"]},
+  {date:"2026-06-20",q:"Will any of our big contenders get knocked out in the group stage?",opts:["No — they're all safe","At least one will shock us","Two or three will crash out","All bets are off!"]},
+  {date:"2026-06-21",q:"What's the best part of the Randall family bracket?",opts:["Trash talking everyone 😂","Learning about different countries","Drama of every match","Rooting against my family"]},
+  {date:"2026-06-22",q:"If you could swap your country with anyone else's, would you?",opts:["Never — loyalty forever 💪","Yes, I want a better team","Maybe a tiny swap","Give mine away for free 😅"]},
+  {date:"2026-06-23",q:"Who wins the Golden Boot (top scorer)?",opts:["Mbappé 🇫🇷","Messi 🇦🇷","Vinícius Jr 🇧🇷","Someone nobody expected"]},
+  {date:"2026-06-24",q:"Last day of the group stage — how are you feeling?",opts:["Confident — my team is through","Terrified — it could go wrong","Already eliminated and salty 😤","Just here for the snacks 🍿"]},
+  {date:"2026-06-25",q:"Knockouts are set! Who goes all the way?",opts:["France or Spain","Brazil or Argentina","England or Germany","A total wildcard wins it"]},
+  {date:"2026-06-28",q:"Round of 32 begins! Which family member gains most points today?",opts:["Someone with a contender","The person with the biggest underdog","Natalie R with two teams","Pure chaos — nobody can predict this"]},
+  {date:"2026-07-04",q:"Round of 16! Which Randall family is secretly dominating?",opts:["Janell's family","Collete's family","Natalie J's family","Rachel's family"]},
+  {date:"2026-07-09",q:"Quarterfinals! Who's your pick for the final?",opts:["A European team","Brazil or Argentina","Complete surprise finalist","Two teams nobody expected"]},
+  {date:"2026-07-14",q:"Semifinals! How are you watching the final?",opts:["Big family watch party! 🎉","At home with snacks","Flying to New Jersey 🏟️","Nervously from my phone"]},
+  {date:"2026-07-19",q:"FINAL DAY! Who wins the 2026 World Cup?",opts:["The favorite wins as expected","Huge upset — underdog takes it","Extra time drama","Penalty shootout thriller"]}
 ];
 
-const NAMES = ["Becky","Janell","Trent","Addi","Sadie","Kaysen","Becca","Collete","Dan","Asher","Issac","Levi","Ethan","Natalie J","Devin","Ashlyn","Jada","Deakon","Leo","Rachel","Joe","Claire","Liam","Rand","Paige","Brittany","Dustin","Natalie R","Roman","Liz","Vilate","Lilly","Arvin","Adrianne"];
-const EMOJIS = ["⚽","🔥","😂","😭","👑","💀","🤞","🙌"];
-const MEDALS = ["🥇","🥈","🥉"];
+const DEFAULT=[
+  {n:"Becky",fam:"Becky",cc:["Brazil"],pts:{Brazil:0},e:{Brazil:false},bpts:0},
+  {n:"Janell",fam:"Janell's family",cc:["Germany"],pts:{Germany:0},e:{Germany:false},bpts:0},
+  {n:"Trent",fam:"Janell's family",cc:["Colombia","Qatar"],pts:{Colombia:0,Qatar:0},e:{Colombia:false,Qatar:false},bpts:0},
+  {n:"Addi",fam:"Janell's family",cc:["Japan","Uzbekistan"],pts:{Japan:0,Uzbekistan:0},e:{Japan:false,Uzbekistan:false},bpts:0},
+  {n:"Sadie",fam:"Janell's family",cc:["Uruguay"],pts:{Uruguay:0},e:{Uruguay:false},bpts:0},
+  {n:"Kaysen",fam:"Janell's family",cc:["Norway"],pts:{Norway:0},e:{Norway:false},bpts:0},
+  {n:"Becca",fam:"Janell's family",cc:["Australia"],pts:{Australia:0},e:{Australia:false},bpts:0},
+  {n:"Collete",fam:"Collete's family",cc:["Switzerland","Haiti"],pts:{Switzerland:0,Haiti:0},e:{Switzerland:false,Haiti:false},bpts:0},
+  {n:"Dan",fam:"Collete's family",cc:["Portugal"],pts:{Portugal:0},e:{Portugal:false},bpts:0},
+  {n:"Asher",fam:"Collete's family",cc:["South Korea","Jordan"],pts:{"South Korea":1,Jordan:0},e:{"South Korea":false,Jordan:false},bpts:0},
+  {n:"Issac",fam:"Collete's family",cc:["Türkiye"],pts:{"Türkiye":0},e:{"Türkiye":false},bpts:0},
+  {n:"Levi",fam:"Collete's family",cc:["Ecuador"],pts:{Ecuador:0},e:{Ecuador:false},bpts:0},
+  {n:"Ethan",fam:"Collete's family",cc:["Czechia"],pts:{Czechia:0},e:{Czechia:false},bpts:0},
+  {n:"Natalie J",fam:"Natalie J's family",cc:["France"],pts:{France:0},e:{France:false},bpts:0},
+  {n:"Devin",fam:"Natalie J's family",cc:["Morocco","DR Congo"],pts:{Morocco:0,"DR Congo":0},e:{Morocco:false,"DR Congo":false},bpts:0},
+  {n:"Ashlyn",fam:"Natalie J's family",cc:["Ivory Coast","Curaçao"],pts:{"Ivory Coast":0,"Curaçao":0},e:{"Ivory Coast":false,"Curaçao":false},bpts:0},
+  {n:"Jada",fam:"Natalie J's family",cc:["Senegal"],pts:{Senegal:0},e:{Senegal:false},bpts:0},
+  {n:"Deakon",fam:"Natalie J's family",cc:["Canada"],pts:{Canada:0},e:{Canada:false},bpts:0},
+  {n:"Leo",fam:"Natalie J's family",cc:["Paraguay"],pts:{Paraguay:0},e:{Paraguay:false},bpts:0},
+  {n:"Rachel",fam:"Rachel's family",cc:["Spain"],pts:{Spain:0},e:{Spain:false},bpts:0},
+  {n:"Joe",fam:"Rachel's family",cc:["Croatia","Panama"],pts:{Croatia:0,Panama:0},e:{Croatia:false,Panama:false},bpts:0},
+  {n:"Claire",fam:"Rachel's family",cc:["USA"],pts:{USA:0},e:{USA:false},bpts:0},
+  {n:"Liam",fam:"Rachel's family",cc:["Belgium"],pts:{Belgium:0},e:{Belgium:false},bpts:0},
+  {n:"Rand",fam:"Rachel's family",cc:["Algeria"],pts:{Algeria:0},e:{Algeria:false},bpts:0},
+  {n:"Paige",fam:"Rachel's family",cc:["South Africa"],pts:{"South Africa":0},e:{"South Africa":false},bpts:0},
+  {n:"Brittany",fam:"Rachel's family",cc:["Sweden"],pts:{Sweden:0},e:{Sweden:false},bpts:0},
+  {n:"Dustin",fam:"Dustin's family",cc:["Mexico","Saudi Arabia","Cape Verde"],pts:{Mexico:1,"Saudi Arabia":0,"Cape Verde":0},e:{Mexico:false,"Saudi Arabia":false,"Cape Verde":false},bpts:0},
+  {n:"Natalie R",fam:"Dustin's family",cc:["Ghana","Iraq"],pts:{Ghana:0,Iraq:0},e:{Ghana:false,Iraq:false},bpts:0},
+  {n:"Roman",fam:"Dustin's family",cc:["Argentina"],pts:{Argentina:0},e:{Argentina:false},bpts:0},
+  {n:"Liz",fam:"Liz's family",cc:["England"],pts:{England:0},e:{England:false},bpts:0},
+  {n:"Vilate",fam:"Liz's family",cc:["Netherlands","Bosnia & Herz."],pts:{Netherlands:0,"Bosnia & Herz.":0},e:{Netherlands:false,"Bosnia & Herz.":false},bpts:0},
+  {n:"Lilly",fam:"Liz's family",cc:["Austria"],pts:{Austria:0},e:{Austria:false},bpts:0},
+  {n:"Arvin",fam:"Liz's family",cc:["Tunisia","Egypt"],pts:{Tunisia:0,Egypt:0},e:{Tunisia:false,Egypt:false},bpts:0},
+  {n:"Adrianne",fam:"Liz's family",cc:["Scotland","New Zealand"],pts:{Scotland:0,"New Zealand":0},e:{Scotland:false,"New Zealand":false},bpts:0}
+];
 
-// ─── STATE ────────────────────────────────────────────────────────
-let players = JSON.parse(JSON.stringify(DEFAULT));
-let comments = [];
-let adminMode = false;
-let editIdx = null;
-let editState = {};
-let selName = "";
-let selEmoji = "⚽";
-let fbApp = null, fbDb = null;
+const FAMILIES=["Becky","Janell's family","Collete's family","Natalie J's family","Rachel's family","Dustin's family","Liz's family"];
+const NAMES=["Becky","Janell","Trent","Addi","Sadie","Kaysen","Becca","Collete","Dan","Asher","Issac","Levi","Ethan","Natalie J","Devin","Ashlyn","Jada","Deakon","Leo","Rachel","Joe","Claire","Liam","Rand","Paige","Brittany","Dustin","Natalie R","Roman","Liz","Vilate","Lilly","Arvin","Adrianne"];
+const EMOJIS=["⚽","🔥","😂","😭","👑","💀","🤞","🙌"];
+const MEDALS=["🥇","🥈","🥉"];
+const MATCHES=[
+  {id:"m1",date:"2026-06-12",home:"Canada",away:"Bosnia & Herz.",label:"Group B · Jun 12"},
+  {id:"m2",date:"2026-06-13",home:"USA",away:"Paraguay",label:"Group D · Jun 13"},
+  {id:"m3",date:"2026-06-13",home:"Qatar",away:"Switzerland",label:"Group B · Jun 13"},
+  {id:"m4",date:"2026-06-14",home:"Brazil",away:"Morocco",label:"Group C · Jun 14"},
+  {id:"m5",date:"2026-06-14",home:"Haiti",away:"Scotland",label:"Group C · Jun 14"},
+  {id:"m6",date:"2026-06-14",home:"Australia",away:"Türkiye",label:"Group D · Jun 14"},
+  {id:"m7",date:"2026-06-14",home:"Germany",away:"Curaçao",label:"Group E · Jun 14"},
+  {id:"m8",date:"2026-06-14",home:"Netherlands",away:"Japan",label:"Group F · Jun 14"},
+  {id:"m9",date:"2026-06-15",home:"Ivory Coast",away:"Ecuador",label:"Group E · Jun 15"},
+  {id:"m10",date:"2026-06-15",home:"Spain",away:"Cape Verde",label:"Group H · Jun 15"},
+  {id:"m11",date:"2026-06-15",home:"Belgium",away:"Egypt",label:"Group H · Jun 15"},
+  {id:"m12",date:"2026-06-16",home:"France",away:"Senegal",label:"Group I · Jun 16"},
+  {id:"m13",date:"2026-06-16",home:"Argentina",away:"Algeria",label:"Group J · Jun 16"},
+  {id:"m14",date:"2026-06-17",home:"England",away:"Croatia",label:"Group L · Jun 17"},
+  {id:"m15",date:"2026-06-18",home:"Mexico",away:"South Korea",label:"Group A · Jun 18"}
+];
+const TOURN_Q=[
+  {id:"t1",q:"Who wins the Golden Boot?",opts:["Mbappé (France)","Messi (Argentina)","Vinícius Jr (Brazil)","Bellingham (England)","Haaland (Norway)","Someone else entirely"]},
+  {id:"t2",q:"Who wins the 2026 World Cup?",opts:["France","Spain","Argentina","Brazil","England","Germany","Portugal","Big dark horse"]},
+  {id:"t3",q:"Which two teams make the final?",opts:["France vs Argentina","Spain vs Brazil","England vs Germany","Portugal vs France","Two surprises"]},
+  {id:"t4",q:"How many total red cards in the tournament?",opts:["Less than 10","10–15","16–20","21–30","More than 30"]},
+  {id:"t5",q:"Which Randall family member wins the bracket?",opts:["Someone in Janell's family","Someone in Collete's family","Someone in Natalie J's family","Someone in Rachel's family","Dustin, Natalie R, or Roman","Someone in Liz's family","Becky!"]}
+];
 
-// ─── FIREBASE INIT ────────────────────────────────────────────────
-async function initFirebase() {
-  if (!FIREBASE_CONFIG) {
-    document.getElementById("setup").style.display = "block";
-    loadLocal();
-    boot();
-    return;
+let players=JSON.parse(JSON.stringify(DEFAULT));
+// Seeded comments from the original bracket — preserved through upgrade
+let comments=[
+  {name:"Issac",text:"Turkey is about to get its get back from Thanksgiving. Sorry Claire, Leo and Becca, it's your turn to get cooked. 💯",reaction:"🔥",time:"Jun 12 at 1:35 PM",ts:1749754500000},
+  {name:"Liz",text:"This is gonna be fun!",reaction:"⚽",time:"Jun 12 at 12:01 PM",ts:1749751260000},
+  {name:"Collete",text:"Switzerlands gonna swipe the board clean🤓",reaction:"⚽",time:"Jun 12 at 9:10 AM",ts:1749740400000},
+  {name:"Natalie R",text:"Daily Update · June 12 ✅ Confirmed results so far (Jun 11) · Mexico 2–0 South Africa → Dustin +1pt · South Korea 2–1 Czechia → Asher +1pt ⚽ Today's matches — Jun 12 · 3pm ET: 🇨🇦 Canada vs 🇧🇦 Bosnia & Herz → affects Deakon and Vilate",reaction:"⚽",time:"Jun 12 at 9:10 AM",ts:1749740399000},
+  {name:"Roman",text:"Soccer",reaction:"⚽",time:"Jun 11 at 11:07 PM",ts:1749693420000}
+],photos=[],vibeVotes={},predictions={},tournPicks={},triviaAnswered={};
+let adminMode=false,editIdx=null,editState={};
+let selNames={chat:"",predict:"",tournament:"",photo:"",vibe:""};
+let selEmoji="⚽",selectedImageData=null;
+let fbDb=null;
+
+// ── FIREBASE INIT ─────────────────────────────────────────────────
+async function initFirebase(){
+  if(!FIREBASE_CONFIG){
+    document.getElementById("setup").style.display="block";
+    loadLocal();boot();return;
   }
-  try {
-    const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js");
-    const { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, limit } =
-      await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    fbApp = initializeApp(FIREBASE_CONFIG);
-    fbDb = getFirestore(fbApp);
-    window._fs = { doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, limit };
-
-    // Load scores
-    try {
-      const snap = await getDoc(doc(fbDb, "bracket", "scores"));
-      if (snap.exists()) {
-        const d = snap.data();
-        if (d.players) players = d.players;
-        if (d.lastUpdated) document.getElementById("lastUpdated").textContent = d.lastUpdated;
-      }
-    } catch(e) { console.warn("Score load:", e); }
-
-    // Live comments
-    try {
-      const q = query(collection(fbDb, "comments"), orderBy("ts","desc"), limit(100));
-      onSnapshot(q, snap => {
-        comments = snap.docs.map(d => ({id:d.id,...d.data()}));
-        renderFeed();
-        updateBadge();
-      });
-    } catch(e) { console.warn("Comments:", e); }
-
-  } catch(e) {
-    console.warn("Firebase failed:", e);
-    document.getElementById("setup").style.display = "block";
-    loadLocal();
-  }
+  try{
+    initializeApp(FIREBASE_CONFIG);
+    fbDb=getFirestore();
+    try{const s=await getDoc(doc(fbDb,"bracket","scores"));if(s.exists()){const d=s.data();if(d.players)players=d.players;if(d.lu)document.getElementById("lastUpdated").textContent=d.lu;}}catch(e){}
+    try{const v=await getDoc(doc(fbDb,"bracket","vibe"));if(v.exists())vibeVotes=v.data()||{};}catch(e){}
+    try{const p=await getDoc(doc(fbDb,"bracket","predictions"));if(p.exists())predictions=p.data()||{};}catch(e){}
+    try{const t=await getDoc(doc(fbDb,"bracket","tournPicks"));if(t.exists())tournPicks=t.data()||{};}catch(e){}
+    try{const tr=await getDoc(doc(fbDb,"bracket","trivia"));if(tr.exists())triviaAnswered=tr.data()||{};}catch(e){}
+    try{const q=query(collection(fbDb,"comments"),orderBy("ts","desc"),limit(100));onSnapshot(q,s=>{comments=s.docs.map(d=>({id:d.id,...d.data()}));renderFeed();updateBadges();});}catch(e){}
+    try{const q=query(collection(fbDb,"photos"),orderBy("ts","desc"),limit(40));onSnapshot(q,s=>{photos=s.docs.map(d=>({id:d.id,...d.data()}));renderPhotos();updateBadges();});}catch(e){}
+  }catch(e){document.getElementById("setup").style.display="block";loadLocal();}
   boot();
 }
 
-// ─── LOCAL STORAGE FALLBACK ───────────────────────────────────────
-function loadLocal() {
-  try {
-    const d = JSON.parse(localStorage.getItem("rfb_scores")||"null");
-    if (d) { if(d.players) players=d.players; if(d.lu) document.getElementById("lastUpdated").textContent=d.lu; }
-    const c = JSON.parse(localStorage.getItem("rfb_comments")||"[]");
-    comments = c;
-  } catch(e) {}
+function loadLocal(){
+  try{const d=JSON.parse(localStorage.getItem("rfb_s")||"null");if(d){if(d.p)players=d.p;if(d.lu)document.getElementById("lastUpdated").textContent=d.lu;}}catch(e){}
+  try{comments=JSON.parse(localStorage.getItem("rfb_c")||"[]");}catch(e){}
+  try{photos=JSON.parse(localStorage.getItem("rfb_ph")||"[]");}catch(e){}
+  try{vibeVotes=JSON.parse(localStorage.getItem("rfb_vv")||"{}");}catch(e){}
+  try{predictions=JSON.parse(localStorage.getItem("rfb_pr")||"{}");}catch(e){}
+  try{tournPicks=JSON.parse(localStorage.getItem("rfb_tp")||"{}");}catch(e){}
+  try{triviaAnswered=JSON.parse(localStorage.getItem("rfb_tr")||"{}");}catch(e){}
 }
-function saveLocal() {
-  try { localStorage.setItem("rfb_scores", JSON.stringify({players, lu:document.getElementById("lastUpdated").textContent})); } catch(e){}
-}
-
-// ─── SAVE SCORES ─────────────────────────────────────────────────
-async function persistScores() {
-  const lu = `Updated ${new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})} at ${new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})}`;
-  document.getElementById("lastUpdated").textContent = lu;
-  showToast("Saving...");
-  saveLocal();
-  if (fbDb && window._fs) {
-    try {
-      await window._fs.setDoc(window._fs.doc(fbDb,"bracket","scores"), {players, lastUpdated:lu});
-      showToast("✓ Published to everyone");
-    } catch(e) { showToast("Save error — check Firebase"); }
-  } else {
-    showToast("✓ Saved locally (share your screen to update others)");
-  }
+function saveLocal(){try{localStorage.setItem("rfb_s",JSON.stringify({p:players,lu:document.getElementById("lastUpdated").textContent}));}catch(e){}}
+async function fbSet(col,id,data){if(fbDb)try{await setDoc(doc(fbDb,col,id),data);}catch(e){}}
+async function persistScores(){
+  const lu=`Updated ${new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})} at ${new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})}`;
+  document.getElementById("lastUpdated").textContent=lu;
+  showToast("Saving…");saveLocal();
+  await fbSet("bracket","scores",{players,lu});
+  showToast("✓ Published to everyone!");
 }
 
-// ─── BOOT ─────────────────────────────────────────────────────────
-function boot() {
-  document.getElementById("loading").style.display = "none";
-  renderBoard();
-  buildNameGrid();
-  buildReactRow();
-  renderFeed();
+function boot(){
+  document.getElementById("loading").style.display="none";
+  renderBoard();renderStats();buildAllNameGrids();buildReactRow();
+  renderFeed();renderPhotos();renderVibe();renderPredict();renderTournPicks();
+  bindEvents();
 }
 
-// ─── HELPERS ──────────────────────────────────────────────────────
-const total = p => p.cc.reduce((s,c)=>s+(p.pts[c]||0),0);
-const alive = p => p.cc.some(c=>!p.e[c]);
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  clearTimeout(window._tt);
-  window._tt = setTimeout(()=>t.textContent="", 3000);
+const total=p=>p.cc.reduce((s,c)=>s+(p.pts[c]||0),0)+(p.bpts||0);
+const alive=p=>p.cc.some(c=>!p.e[c]);
+function showToast(m){const t=document.getElementById("toast");t.textContent=m;clearTimeout(window._tt);window._tt=setTimeout(()=>t.textContent="",3000);}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function updateBadges(){
+  const cb=document.getElementById("chatBadge");cb.style.display=comments.length?"inline":"none";if(comments.length)cb.textContent=comments.length;
+  const pb=document.getElementById("photoBadge");pb.style.display=photos.length?"inline":"none";if(photos.length)pb.textContent=photos.length;
 }
-function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function todayStr(){return new Date().toISOString().slice(0,10);}
 
-// ─── BOARD ────────────────────────────────────────────────────────
-function renderBoard() {
-  const sorted = players.map((p,i)=>({...p,_i:i,_t:total(p),_a:alive(p)}))
-    .sort((a,b)=>b._t-a._t||(b._a?1:0)-(a._a?1:0));
-  document.getElementById("board").innerHTML = sorted.map((p,rank)=>{
-    const lead = rank===0 && p._t>0;
-    const bc = lead?"#f5c842":p._a?"#00b894":"#636e72";
-    const rk = rank<3?`<div class="rank top">${MEDALS[rank]}</div>`:`<div class="rank">${rank+1}</div>`;
-    const chips = p.cc.map(c=>{
-      const ci=C[c]||{};
-      const el=p.e[c], pts=p.pts[c]||0;
-      const cls = el?"chip out":ci.s?"chip star":"chip alive";
-      return `<div class="${cls}"><span class="chip-flag">${ci.f||""}</span>${esc(c)}${ci.s&&!el?`<span style="font-size:10px">⭐</span>`:""}${pts>0?`<span class="chip-pts">${pts}pt</span>`:""}</div>`;
+function bindEvents(){
+  document.getElementById("adminBtn").onclick=toggleAdmin;
+  document.getElementById("pinCancelBtn").onclick=closePinModal;
+  document.getElementById("pinUnlockBtn").onclick=checkPin;
+  document.getElementById("pinInput").onkeydown=e=>{if(e.key==="Enter")checkPin();};
+  document.getElementById("sheetCancelBtn").onclick=closeSheet;
+  document.getElementById("sheetSaveBtn").onclick=saveEdit;
+  document.getElementById("statsToggle").onclick=toggleStats;
+  document.getElementById("factCloseBtn").onclick=closeFactSheet;
+  document.getElementById("factSheetBg").onclick=e=>{if(e.target===document.getElementById("factSheetBg"))closeFactSheet();};
+  document.getElementById("lightbox").onclick=closeLightbox;
+  document.getElementById("lightboxClose").onclick=closeLightbox;
+  document.getElementById("postBtn").onclick=postComment;
+  document.getElementById("uploadBtn").onclick=uploadPhoto;
+  document.getElementById("photoInput").onchange=onPhotoSelected;
+  document.getElementById("commentInput").oninput=onInput;
+  document.getElementById("photoCaption").oninput=()=>{};
+  ["board","predict","vibe","photos","chat"].forEach(t=>{
+    document.getElementById("tab-"+t).onclick=()=>switchTab(t);
+  });
+}
+
+// ── BOARD ─────────────────────────────────────────────────────────
+function renderBoard(){
+  const sorted=[...players].map((p,i)=>({...p,_i:i,_t:total(p),_a:alive(p)})).sort((a,b)=>b._t-a._t||(b._a?1:0)-(a._a?1:0));
+  document.getElementById("board").innerHTML=sorted.map((p,rank)=>{
+    const lead=rank===0&&p._t>0;
+    const bc=lead?"#f5c842":p._a?"#00b894":"#636e72";
+    const rk=rank<3?`<div class="rank top">${MEDALS[rank]}</div>`:`<div class="rank">${rank+1}</div>`;
+    const chips=p.cc.map(c=>{
+      const ci=C[c]||{};const el=p.e[c],pts=p.pts[c]||0;
+      const cls=el?"chip out":ci.s?"chip star":"chip alive";
+      return`<div class="${cls}" data-country="${esc(c)}" data-player="${esc(p.n)}" title="Tap for facts & trivia"><span class="chip-flag">${ci.f||""}</span>${esc(c)}${ci.s&&!el?`<span style="font-size:9px">⭐</span>`:""}${pts>0?`<span class="chip-pts">${pts}pt</span>`:""}</div>`;
     }).join("");
-    return `<div class="p-card${adminMode?" editable":""}" style="border-left:3px solid ${bc}" onclick="${adminMode?`openEdit(${p._i})`:""}">${rk}<div><div style="display:flex;align-items:center"><span class="p-name">${esc(p.n)}</span>${adminMode?`<span class="edit-hint">tap to edit</span>`:""}</div><div class="p-fam">${esc(p.fam)}</div><div class="chips">${chips}</div></div><div class="score"><div class="score-n${lead?" lead":""}">${p._t}</div><div class="score-l">pts</div></div></div>`;
+    const bptsEl=p.bpts>0?`<div style="font-size:10px;color:var(--gold);margin-top:2px">+${p.bpts} bonus</div>`:"";
+    return`<div class="p-card${adminMode?" editable":""}" data-idx="${p._i}" style="border-left:3px solid ${bc}">${rk}<div><div style="display:flex;align-items:center"><span class="p-name">${esc(p.n)}</span>${adminMode?`<span class="edit-hint">tap to edit</span>`:""}</div><div class="p-fam">${esc(p.fam)}</div><div class="chips">${chips}</div></div><div class="score"><div class="score-n${lead?" lead":""}">${p._t}</div><div class="score-l">pts</div>${bptsEl}</div></div>`;
   }).join("");
-}
-
-// ─── TABS ─────────────────────────────────────────────────────────
-function switchTab(t) {
-  document.getElementById("pane-board").style.display = t==="board"?"":"none";
-  document.getElementById("pane-chat").style.display = t==="chat"?"":"none";
-  document.getElementById("tab-board").className = "tab"+(t==="board"?" active":"");
-  document.getElementById("tab-chat").className = "tab"+(t==="chat"?" active":"");
-}
-
-// ─── ADMIN ────────────────────────────────────────────────────────
-function toggleAdmin() {
-  if (adminMode) {
-    adminMode = false;
-    document.getElementById("adminBtn").className="btn-admin";
-    document.getElementById("adminBtn").textContent="Edit Scores";
-    renderBoard();
-  } else {
-    document.getElementById("pinModal").style.display="flex";
-    setTimeout(()=>document.getElementById("pinInput").focus(),80);
-  }
-}
-function closePinModal() {
-  document.getElementById("pinModal").style.display="none";
-  document.getElementById("pinInput").value="";
-  document.getElementById("pinErr").style.display="none";
-  document.getElementById("pinInput").className="pin-in";
-}
-function checkPin() {
-  if (document.getElementById("pinInput").value===PIN) {
-    adminMode=true;
-    document.getElementById("adminBtn").className="btn-admin on";
-    document.getElementById("adminBtn").textContent="Done Editing";
-    closePinModal(); renderBoard();
-  } else {
-    document.getElementById("pinErr").style.display="block";
-    document.getElementById("pinInput").className="pin-in err";
+  // bind chip clicks
+  document.querySelectorAll(".chip[data-country]").forEach(chip=>{
+    chip.onclick=()=>openFactSheet(chip.dataset.country,chip.dataset.player);
+  });
+  // bind card clicks for admin
+  if(adminMode){
+    document.querySelectorAll(".p-card.editable").forEach(card=>{
+      card.onclick=()=>openEdit(+card.dataset.idx);
+    });
   }
 }
 
-// ─── EDIT SHEET ───────────────────────────────────────────────────
-function openEdit(i) {
-  editIdx = i;
-  const p = players[i];
-  editState = {};
-  p.cc.forEach(c=>{ editState[c]={pts:p.pts[c]||0,el:p.e[c]||false}; });
-  document.getElementById("sheetTitle").textContent = `Edit · ${p.n}`;
-  document.getElementById("sheetBody").innerHTML = p.cc.map(c=>{
-    const ci=C[c]||{};
-    const id="eb_"+c.replace(/\W/g,"_");
-    return `<div class="e-row"><div class="e-ctry"><span style="font-size:20px">${ci.f||""}</span>${esc(c)}${ci.s?" ⭐":""}</div><input class="pts-in" type="number" min="0" max="99" value="${editState[c].pts}" onchange="editState['${c}'].pts=+this.value"><button class="elim-btn${editState[c].el?" on":""}" id="${id}" onclick="togEl('${c}','${id}')">${editState[c].el?"✕":"●"}</button></div>`;
-  }).join("");
+function toggleStats(){
+  const tg=document.getElementById("statsToggle");
+  const pn=document.getElementById("statsPanel");
+  tg.classList.toggle("open");pn.classList.toggle("open");
+  if(pn.classList.contains("open"))renderStats();
+}
+function renderStats(){
+  const famT={};FAMILIES.forEach(f=>famT[f]={total:0,members:0});
+  players.forEach(p=>{if(famT[p.fam]){famT[p.fam].total+=total(p);famT[p.fam].members++;}});
+  const sorted=[...players].map(p=>({...p,_t:total(p)})).sort((a,b)=>b._t-a._t);
+  const leader=sorted[0];
+  const mostAlive=players.reduce((m,p)=>p.cc.filter(c=>!p.e[c]).length>(m.cc.filter(c=>!m.e[c]).length)?p:m,players[0]);
+  const maxFam=Math.max(...Object.values(famT).map(f=>f.total))||1;
+  const famSorted=Object.entries(famT).sort((a,b)=>b[1].total-a[1].total);
+  document.getElementById("statsPanel").innerHTML=`<div class="section-card" style="margin-top:6px"><div class="stats-grid"><div class="stat-cell"><div class="stat-val">${leader?leader._t:0}</div><div class="stat-lbl">Points leader</div><div class="stat-sub">${leader?leader.n:"—"}</div></div><div class="stat-cell"><div class="stat-val">${players.filter(p=>alive(p)).length}</div><div class="stat-lbl">Players still alive</div><div class="stat-sub">of ${players.length} total</div></div><div class="stat-cell"><div class="stat-val">${mostAlive?mostAlive.cc.filter(c=>!mostAlive.e[c]).length:0}</div><div class="stat-lbl">Most countries alive</div><div class="stat-sub">${mostAlive?mostAlive.n:"—"}</div></div><div class="stat-cell"><div class="stat-val">${players.filter(p=>!alive(p)).length}</div><div class="stat-lbl">Eliminated</div><div class="stat-sub">all countries out</div></div></div><div class="sec-title" style="margin-bottom:10px">Family Head-to-Head</div><div class="family-bars">${famSorted.map(([fam,data])=>`<div class="fam-bar-row"><div class="fam-bar-lbl">${fam.replace("'s family","")}</div><div class="fam-bar-track"><div class="fam-bar-fill" style="width:${Math.round(data.total/maxFam*100)}%"></div></div><div class="fam-bar-pts">${data.total}pt</div></div>`).join("")}</div></div>`;
+}
+
+function switchTab(t){
+  ["board","predict","vibe","photos","chat"].forEach(id=>{
+    document.getElementById("pane-"+id).style.display=t===id?"":"none";
+    document.getElementById("tab-"+id).className="tab"+(t===id?" active":"");
+  });
+}
+
+function toggleAdmin(){
+  if(adminMode){adminMode=false;document.getElementById("adminBtn").className="btn-sm";document.getElementById("adminBtn").textContent="Edit Scores";renderBoard();}
+  else{document.getElementById("pinModal").style.display="flex";setTimeout(()=>document.getElementById("pinInput").focus(),80);}
+}
+function closePinModal(){document.getElementById("pinModal").style.display="none";document.getElementById("pinInput").value="";document.getElementById("pinErr").style.display="none";document.getElementById("pinInput").className="pin-in";}
+function checkPin(){
+  if(document.getElementById("pinInput").value===PIN){adminMode=true;document.getElementById("adminBtn").className="btn-sm on";document.getElementById("adminBtn").textContent="Done Editing";closePinModal();renderBoard();}
+  else{document.getElementById("pinErr").style.display="block";document.getElementById("pinInput").className="pin-in err";}
+}
+function openEdit(i){
+  editIdx=i;const p=players[i];editState={};
+  p.cc.forEach(c=>{editState[c]={pts:p.pts[c]||0,el:p.e[c]||false};});
+  document.getElementById("sheetTitle").textContent=`Edit · ${p.n}`;
+  document.getElementById("sheetBody").innerHTML=`<div class="e-row"><div class="e-ctry">⭐ Bonus points</div><input class="pts-in" type="number" min="0" max="99" value="${p.bpts||0}" id="bptsIn"></div>`+p.cc.map(c=>{const ci=C[c]||{};const id="eb_"+c.replace(/\W/g,"_");return`<div class="e-row"><div class="e-ctry"><span style="font-size:18px">${ci.f||""}</span>${esc(c)}${ci.s?" ⭐":""}</div><input class="pts-in" type="number" min="0" max="99" value="${editState[c].pts}" data-c="${esc(c)}"><button class="elim-btn${editState[c].el?" on":""}" id="${id}" data-c="${esc(c)}">${editState[c].el?"✕":"●"}</button></div>`;}).join("");
+  document.getElementById("sheetBody").querySelectorAll("input.pts-in[data-c]").forEach(inp=>{inp.onchange=()=>{editState[inp.dataset.c].pts=+inp.value;};});
+  document.getElementById("sheetBody").querySelectorAll("button.elim-btn").forEach(btn=>{btn.onclick=()=>{const c=btn.dataset.c;editState[c].el=!editState[c].el;btn.className="elim-btn"+(editState[c].el?" on":"");btn.textContent=editState[c].el?"✕":"●";};});
   document.getElementById("sheet").style.display="flex";
 }
-function togEl(c,id) {
-  editState[c].el = !editState[c].el;
-  const b = document.getElementById(id);
-  b.className = "elim-btn"+(editState[c].el?" on":"");
-  b.textContent = editState[c].el?"✕":"●";
-}
-function closeSheet() { document.getElementById("sheet").style.display="none"; editIdx=null; }
-async function saveEdit() {
-  if (editIdx===null) return;
-  const p = players[editIdx];
-  p.cc.forEach(c=>{ p.pts[c]=Number(editState[c].pts)||0; p.e[c]=editState[c].el; });
-  closeSheet(); renderBoard();
-  await persistScores();
+function closeSheet(){document.getElementById("sheet").style.display="none";editIdx=null;}
+async function saveEdit(){
+  if(editIdx===null)return;
+  const p=players[editIdx];
+  p.bpts=Number(document.getElementById("bptsIn").value)||0;
+  p.cc.forEach(c=>{p.pts[c]=Number(editState[c].pts)||0;p.e[c]=editState[c].el;});
+  closeSheet();renderBoard();renderStats();await persistScores();
 }
 
-// ─── CHAT ─────────────────────────────────────────────────────────
-function buildNameGrid() {
-  document.getElementById("nameGrid").innerHTML = NAMES.map(n=>
-    `<button class="name-btn" onclick="selN('${n}')">${n}</button>`).join("");
+function buildAllNameGrids(){
+  const make=(id,key)=>{document.getElementById(id).innerHTML=NAMES.map(n=>`<button class="name-btn" data-key="${key}" data-name="${esc(n)}">${esc(n)}</button>`).join("");};
+  make("chatNameGrid","chat");make("predictNameGrid","predict");make("tournamentNameGrid","tournament");make("photoNameGrid","photo");
+  document.querySelectorAll(".name-btn").forEach(btn=>{
+    btn.onclick=()=>{
+      const key=btn.dataset.key,n=btn.dataset.name;
+      selNames[key]=n;
+      document.querySelectorAll(`.name-btn[data-key="${key}"]`).forEach(b=>b.className="name-btn"+(b.dataset.name===n?" sel":""));
+      if(key==="predict")renderPredict();
+      if(key==="tournament")renderTournPicks();
+      if(key==="photo")updateUploadBtn();
+      if(key==="chat")updatePost();
+    };
+  });
+  // vibe name grid built separately in renderVibe
 }
-function selN(n) {
-  selName = n;
-  document.querySelectorAll(".name-btn").forEach(b=>b.className="name-btn"+(b.textContent===n?" sel":""));
-  updatePost();
-}
-function buildReactRow() {
-  document.getElementById("reactRow").innerHTML = EMOJIS.map(e=>
-    `<button class="react-btn${e===selEmoji?" sel":""}" onclick="selE('${e}')">${e}</button>`).join("");
-}
-function selE(e) {
-  selEmoji = e;
-  document.querySelectorAll(".react-btn").forEach(b=>b.className="react-btn"+(b.textContent===e?" sel":""));
-}
-function onInput() {
-  const v = document.getElementById("commentInput").value;
-  document.getElementById("charCount").textContent = `${v.length}/280`;
-  updatePost();
-}
-function updatePost() {
-  document.getElementById("postBtn").disabled = !selName || !document.getElementById("commentInput").value.trim();
-}
-async function postComment() {
-  const txt = document.getElementById("commentInput").value.trim();
-  if (!selName||!txt) return;
-  const btn = document.getElementById("postBtn");
-  btn.disabled=true; btn.textContent="Posting...";
-  const entry = {
-    name:selName, text:txt, reaction:selEmoji,
-    time:new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}),
-    ts:Date.now()
-  };
-  if (fbDb && window._fs) {
-    try { await window._fs.addDoc(window._fs.collection(fbDb,"comments"), entry); }
-    catch(e) { comments.unshift(entry); saveLocal(); renderFeed(); }
-  } else {
-    comments.unshift(entry);
-    try { localStorage.setItem("rfb_comments", JSON.stringify(comments.slice(0,100))); } catch(e){}
-    renderFeed(); updateBadge();
-  }
-  document.getElementById("commentInput").value="";
-  document.getElementById("charCount").textContent="0/280";
-  btn.textContent="Post ⚡"; updatePost();
-}
-function renderFeed() {
-  const feed = document.getElementById("feed");
-  if (!comments.length) {
-    feed.innerHTML=`<div class="empty-chat"><div class="empty-icon">💬</div>No comments yet — be the first to talk trash</div>`;
-    return;
-  }
-  feed.innerHTML = comments.map(c=>`
-    <div class="c-card">
-      <div class="c-hdr">
-        <div class="c-who"><span class="c-emoji">${c.reaction||"⚽"}</span><span class="c-name">${esc(c.name)}</span></div>
-        <span class="c-time">${esc(c.time||"")}</span>
-      </div>
-      <div class="c-text">${esc(c.text)}</div>
-    </div>`).join("");
-}
-function updateBadge() {
-  const b = document.getElementById("badge");
-  if (comments.length>0){b.style.display="inline";b.textContent=comments.length;}
-  else b.style.display="none";
+function buildReactRow(){
+  document.getElementById("reactRow").innerHTML=EMOJIS.map(e=>`<button class="react-btn${e===selEmoji?" sel":""}" data-e="${e}">${e}</button>`).join("");
+  document.querySelectorAll(".react-btn").forEach(btn=>{btn.onclick=()=>{selEmoji=btn.dataset.e;document.querySelectorAll(".react-btn").forEach(b=>b.className="react-btn"+(b.dataset.e===selEmoji?" sel":""));};});
 }
 
-// ─── GO ───────────────────────────────────────────────────────────
+// ── FACT CARDS ────────────────────────────────────────────────────
+function openFactSheet(country,playerName){
+  const ci=C[country]||{};
+  document.getElementById("factFlag").textContent=ci.f||"🌍";
+  document.getElementById("factName").textContent=country;
+  document.getElementById("factHolder").textContent=`Assigned to ${playerName}`;
+  document.getElementById("factGrid").innerHTML=`<div class="fact-cell"><div class="fact-cell-lbl">Capital</div><div class="fact-cell-val">${ci.cap||"—"}</div></div><div class="fact-cell"><div class="fact-cell-lbl">Population</div><div class="fact-cell-val">${ci.pop||"—"}</div></div><div class="fact-cell"><div class="fact-cell-lbl">Star Player</div><div class="fact-cell-val">${ci.star||"—"}</div></div><div class="fact-cell"><div class="fact-cell-lbl">World Cup</div><div class="fact-cell-val">${ci.wc||"—"}</div></div><div class="fact-cell full"><div class="fact-cell-lbl">Fun Fact</div><div class="fact-cell-val" style="font-size:13px;line-height:1.5">${ci.fact||"A fascinating country on the world stage."}</div></div>`;
+  const qs=TRIVIA[country];
+  const answered=triviaAnswered[country]||{};
+  if(qs){
+    document.getElementById("triviaSection").innerHTML=`<div class="trivia-title">🧠 Trivia — earn up to ${qs.length} bonus points!</div>${qs.map((q,qi)=>{const isAns=answered[qi]!==undefined;const earned=isAns&&answered[qi]===q.a;return`<div class="trivia-q"><div class="trivia-q-text">${qi+1}. ${esc(q.q)}</div><div class="trivia-opts">${q.opts.map((opt,oi)=>{let cls="trivia-opt";if(isAns){cls+=(oi===q.a?" correct":(oi===answered[qi]?" wrong":""));}return`<button class="${cls}"${isAns?" disabled":""} data-country="${esc(country)}" data-qi="${qi}" data-oi="${oi}" data-ans="${q.a}">${esc(opt)}</button>`;}).join("")}</div>${isAns?`<div class="trivia-pts-earned">${earned?"✓ +1 bonus point earned!":"✗ Answer: "+esc(q.opts[q.a])}</div>`:"<div class='trivia-pts-earned'></div>"}</div>`;}).join("")}`;
+    document.querySelectorAll(".trivia-opt:not([disabled])").forEach(btn=>{
+      btn.onclick=()=>answerTrivia(btn.dataset.country,+btn.dataset.qi,+btn.dataset.oi,+btn.dataset.ans,playerName);
+    });
+  }else{
+    document.getElementById("triviaSection").innerHTML=`<div class="trivia-title">🌍 Learn something new about your country!</div>`;
+  }
+  document.getElementById("factSheetBg").style.display="flex";
+}
+function closeFactSheet(){document.getElementById("factSheetBg").style.display="none";}
+async function answerTrivia(country,qi,oi,correctAns,playerName){
+  const correct=oi===correctAns;
+  if(!triviaAnswered[country])triviaAnswered[country]={};
+  triviaAnswered[country][qi]=oi;
+  if(correct){const player=players.find(p=>p.n===playerName);if(player){player.bpts=(player.bpts||0)+1;await persistScores();}}
+  await fbSet("bracket","trivia",triviaAnswered);
+  try{localStorage.setItem("rfb_tr",JSON.stringify(triviaAnswered));}catch(e){}
+  openFactSheet(country,playerName);
+}
+
+// ── VIBE ──────────────────────────────────────────────────────────
+function getTodayVibe(){const today=todayStr();return VIBE_QUESTIONS.find(v=>v.date===today)||VIBE_QUESTIONS[VIBE_QUESTIONS.length-1];}
+function renderVibe(){
+  const vibe=getTodayVibe();
+  const todayVotes=vibeVotes[vibe.date]||{};
+  const totalV=Object.values(todayVotes).length;
+  const optCounts=vibe.opts.map((_,i)=>Object.values(todayVotes).filter(v=>v.opt===i).length);
+  document.getElementById("vibeToday").innerHTML=`<div class="vibe-card"><div style="font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;font-family:'Barlow Condensed',sans-serif;margin-bottom:6px">Today's Vibe Check · ${new Date().toLocaleDateString("en-US",{month:"short",day:"numeric"})}</div><div class="vibe-q">${esc(vibe.q)}</div><div class="vibe-sub">Tap your answer — results show live for everyone</div><div class="c-sublbl">Who are you?</div><div class="name-grid" id="vibeNameGrid"></div>${totalV>0?`<div style="margin-bottom:12px">${vibe.opts.map((opt,i)=>`<div class="vibe-result-row"><div class="vibe-result-lbl" style="font-size:12px">${esc(opt)}</div><div class="vibe-result-track"><div class="vibe-result-fill" style="width:${totalV?Math.round(optCounts[i]/totalV*100):0}%"></div></div><div class="vibe-result-pct">${totalV?Math.round(optCounts[i]/totalV*100):0}%</div></div>`).join("")}<div class="vibe-result-count">${totalV} vote${totalV!==1?"s":""} so far</div></div>`:""}<div>${vibe.opts.map((opt,i)=>`<button class="vibe-opt" data-date="${vibe.date}" data-opt="${i}">${esc(opt)}</button>`).join("")}</div></div>`;
+  // vibe name grid
+  document.getElementById("vibeNameGrid").innerHTML=NAMES.map(n=>`<button class="name-btn" data-key="vibe" data-name="${esc(n)}">${esc(n)}</button>`).join("");
+  document.querySelectorAll("#vibeNameGrid .name-btn").forEach(btn=>{btn.onclick=()=>{selNames.vibe=btn.dataset.name;document.querySelectorAll("#vibeNameGrid .name-btn").forEach(b=>b.className="name-btn"+(b.dataset.name===btn.dataset.name?" sel":""));};});
+  document.querySelectorAll(".vibe-opt").forEach(btn=>{btn.onclick=()=>castVote(btn.dataset.date,+btn.dataset.opt);});
+  // past vibes
+  const past=VIBE_QUESTIONS.filter(v=>v.date<todayStr()&&vibeVotes[v.date]).slice(-5).reverse();
+  document.getElementById("vibeHistory").innerHTML=past.length?past.map(v=>{const votes=vibeVotes[v.date]||{};const tot=Object.values(votes).length;const counts=v.opts.map((_,i)=>Object.values(votes).filter(vv=>vv.opt===i).length);return`<div class="vibe-hist-card"><div class="vibe-hist-q">${esc(v.q)}</div>${v.opts.map((opt,i)=>`<div class="vibe-result-row"><div class="vibe-result-lbl" style="font-size:11px">${esc(opt)}</div><div class="vibe-result-track"><div class="vibe-result-fill" style="width:${tot?Math.round(counts[i]/tot*100):0}%"></div></div><div class="vibe-result-pct" style="font-size:10px">${tot?Math.round(counts[i]/tot*100):0}%</div></div>`).join("")}<div style="font-size:10px;color:rgba(255,255,255,.3);margin-top:6px">${tot} votes</div></div>`;}).join(""):`<div class="empty-state" style="padding:20px"><div class="empty-icon">🗳️</div>Past vibe checks appear here</div>`;
+}
+async function castVote(date,optIdx){
+  if(!selNames.vibe){showToast("Pick your name first!");return;}
+  if(!vibeVotes[date])vibeVotes[date]={};
+  vibeVotes[date][selNames.vibe]={opt:optIdx,voter:selNames.vibe};
+  await fbSet("bracket","vibe",vibeVotes);
+  try{localStorage.setItem("rfb_vv",JSON.stringify(vibeVotes));}catch(e){}
+  renderVibe();showToast("✓ Vote recorded!");
+}
+
+// ── PREDICT ───────────────────────────────────────────────────────
+function renderPredict(){
+  const name=selNames.predict;
+  const cards=MATCHES.slice(0,10);
+  document.getElementById("matchCards").innerHTML=cards.map(m=>{
+    const locked=m.date<todayStr();
+    const myPick=name&&predictions[m.id]&&predictions[m.id][name];
+    const hci=C[m.home]||{};const aci=C[m.away]||{};
+    const picks=predictions[m.id]||{};
+    const hv=Object.values(picks).filter(p=>p.pick===m.home).length;
+    const av=Object.values(picks).filter(p=>p.pick===m.away).length;
+    const dv=Object.values(picks).filter(p=>p.pick==="Draw").length;
+    const tv=Object.values(picks).length;
+    return`<div class="match-card"><div class="match-label">${esc(m.label)}</div><div class="match-teams"><div class="match-team"><div class="match-flag">${hci.f||"🏳️"}</div><div class="match-name">${esc(m.home)}</div></div><div class="match-vs">VS</div><div class="match-team"><div class="match-flag">${aci.f||"🏳️"}</div><div class="match-name">${esc(m.away)}</div></div></div>${!locked&&name?`<div class="pick-btns"><button class="pick-btn${myPick?.pick===m.home?" selected":""}" data-mid="${m.id}" data-pick="${esc(m.home)}">${esc(m.home)}</button><button class="pick-btn${myPick?.pick==="Draw"?" selected":""}" data-mid="${m.id}" data-pick="Draw">Draw</button><button class="pick-btn${myPick?.pick===m.away?" selected":""}" data-mid="${m.id}" data-pick="${esc(m.away)}">${esc(m.away)}</button></div>`:locked?`<div class="predict-locked">🔒 Locked · ${tv} picks made</div>`:`<div class="predict-locked">Select your name above to predict</div>`}${tv>0&&(locked||myPick)?`<div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.4)">Family: ${esc(m.home)} ${hv} · Draw ${dv} · ${esc(m.away)} ${av}</div>`:""}</div>`;
+  }).join("");
+  document.querySelectorAll(".pick-btn[data-mid]").forEach(btn=>{btn.onclick=()=>makePick(btn.dataset.mid,btn.dataset.pick);});
+  // prediction leaderboard
+  const ptsMap={};
+  Object.entries(predictions).forEach(([mid,picks])=>{const match=MATCHES.find(m=>m.id===mid);if(!match||!match.result)return;Object.entries(picks).forEach(([n,p])=>{if(!ptsMap[n])ptsMap[n]=0;if(p.pick===match.result)ptsMap[n]+=1;});});
+  const pSorted=Object.entries(ptsMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  document.getElementById("predictLeaderboard").innerHTML=pSorted.length?pSorted.map(([n,pts],i)=>`<div class="pred-row"><span class="pred-name">${i<3?MEDALS[i]+" ":""}${esc(n)}</span><span class="pred-pts">${pts}pt</span></div>`).join(""):`<div style="font-size:13px;color:rgba(255,255,255,.35);padding:8px 0">Points scored after results confirmed</div>`;
+}
+async function makePick(matchId,pick){
+  const name=selNames.predict;if(!name){showToast("Select your name first!");return;}
+  if(!predictions[matchId])predictions[matchId]={};
+  predictions[matchId][name]={pick,ts:Date.now()};
+  await fbSet("bracket","predictions",predictions);
+  try{localStorage.setItem("rfb_pr",JSON.stringify(predictions));}catch(e){}
+  renderPredict();showToast(`✓ ${pick} picked!`);
+}
+function renderTournPicks(){
+  const name=selNames.tournament;
+  document.getElementById("tournamentPicks").innerHTML=TOURN_Q.map(tq=>{
+    const myPick=name&&tournPicks[tq.id]&&tournPicks[tq.id][name];
+    const allPicks=tournPicks[tq.id]||{};
+    return`<div class="match-card" style="margin-bottom:10px"><div class="match-label">${esc(tq.q)}</div><div class="pick-btns" style="flex-wrap:wrap;gap:5px;margin-top:8px">${tq.opts.map(opt=>`<button class="pick-btn${myPick?.pick===opt?" selected":""}" style="flex:none;padding:7px 10px" data-qid="${tq.id}" data-opt="${esc(opt)}">${esc(opt)}</button>`).join("")}</div>${!name?`<div class="predict-locked" style="margin-top:6px">Select your name above first</div>`:""}<div style="margin-top:6px;font-size:11px;color:rgba(255,255,255,.3)">${Object.keys(allPicks).length} answered</div></div>`;
+  }).join("");
+  document.querySelectorAll(".pick-btn[data-qid]").forEach(btn=>{btn.onclick=()=>makeTournPick(btn.dataset.qid,btn.dataset.opt);});
+}
+async function makeTournPick(qId,opt){
+  const name=selNames.tournament;if(!name){showToast("Select your name first!");return;}
+  if(!tournPicks[qId])tournPicks[qId]={};
+  tournPicks[qId][name]={pick:opt,ts:Date.now()};
+  await fbSet("bracket","tournPicks",tournPicks);
+  try{localStorage.setItem("rfb_tp",JSON.stringify(tournPicks));}catch(e){}
+  renderTournPicks();showToast("✓ Saved!");
+}
+
+// ── CHAT ──────────────────────────────────────────────────────────
+function onInput(){const v=document.getElementById("commentInput").value;document.getElementById("charCount").textContent=`${v.length}/280`;updatePost();}
+function updatePost(){document.getElementById("postBtn").disabled=!selNames.chat||!document.getElementById("commentInput").value.trim();}
+async function postComment(){
+  const txt=document.getElementById("commentInput").value.trim();if(!selNames.chat||!txt)return;
+  const btn=document.getElementById("postBtn");btn.disabled=true;btn.textContent="Posting...";
+  const entry={name:selNames.chat,text:txt,reaction:selEmoji,time:new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}),ts:Date.now()};
+  if(fbDb){try{await addDoc(collection(fbDb,"comments"),entry);}catch(e){comments.unshift(entry);renderFeed();updateBadges();}}
+  else{comments.unshift(entry);try{localStorage.setItem("rfb_c",JSON.stringify(comments.slice(0,100)));}catch(e){}renderFeed();updateBadges();}
+  document.getElementById("commentInput").value="";document.getElementById("charCount").textContent="0/280";btn.textContent="Post ⚡";updatePost();
+}
+function renderFeed(){
+  const feed=document.getElementById("feed");
+  if(!comments.length){feed.innerHTML=`<div class="empty-state"><div class="empty-icon">💬</div>No comments yet — be the first!</div>`;return;}
+  feed.innerHTML=comments.map(c=>`<div class="c-card"><div class="c-hdr"><div class="c-who"><span class="c-emoji">${c.reaction||"⚽"}</span><span class="c-name">${esc(c.name)}</span></div><span class="c-time">${esc(c.time||"")}</span></div><div class="c-text">${esc(c.text)}</div></div>`).join("");
+}
+
+// ── PHOTOS ────────────────────────────────────────────────────────
+function onPhotoSelected(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement("canvas");const MAX=800;
+      let w=img.width,h=img.height;
+      if(w>h){if(w>MAX){h=h*(MAX/w);w=MAX;}}else{if(h>MAX){w=w*(MAX/h);h=MAX;}}
+      canvas.width=w;canvas.height=h;canvas.getContext("2d").drawImage(img,0,0,w,h);
+      selectedImageData=canvas.toDataURL("image/jpeg",0.7);
+      const prev=document.getElementById("photoPreview");prev.src=selectedImageData;prev.style.display="block";
+      document.getElementById("photoDrop").style.display="none";updateUploadBtn();
+    };img.src=e.target.result;
+  };reader.readAsDataURL(file);
+}
+function updateUploadBtn(){document.getElementById("uploadBtn").disabled=!selNames.photo||!selectedImageData;}
+async function uploadPhoto(){
+  if(!selNames.photo||!selectedImageData)return;
+  const btn=document.getElementById("uploadBtn");btn.disabled=true;btn.textContent="Uploading...";
+  const prog=document.getElementById("uploadProgress");const bar=document.getElementById("uploadBar");
+  prog.style.display="block";bar.style.width="40%";
+  const entry={name:selNames.photo,caption:document.getElementById("photoCaption").value.trim(),imageData:selectedImageData,time:new Date().toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}),ts:Date.now()};
+  bar.style.width="80%";
+  if(fbDb){try{await addDoc(collection(fbDb,"photos"),entry);bar.style.width="100%";}catch(e){showToast("Upload failed — try a smaller photo");btn.disabled=false;btn.textContent="Share Photo 📤";prog.style.display="none";return;}}
+  else{photos.unshift(entry);try{localStorage.setItem("rfb_ph",JSON.stringify(photos.slice(0,20)));}catch(e){}renderPhotos();updateBadges();}
+  bar.style.width="100%";setTimeout(()=>{prog.style.display="none";bar.style.width="0";},600);
+  selectedImageData=null;
+  document.getElementById("photoPreview").style.display="none";document.getElementById("photoPreview").src="";
+  document.getElementById("photoDrop").style.display="block";document.getElementById("photoCaption").value="";document.getElementById("photoInput").value="";
+  btn.textContent="Share Photo 📤";updateUploadBtn();showToast("📸 Photo shared!");
+}
+function renderPhotos(){
+  const grid=document.getElementById("photoGrid");const empty=document.getElementById("photoEmpty");
+  if(!photos.length){grid.innerHTML="";empty.style.display="block";return;}
+  empty.style.display="none";
+  grid.innerHTML=photos.map(p=>`<div class="photo-card"><img src="${p.imageData}" alt="photo by ${esc(p.name)}" data-src="${p.imageData}"><div class="photo-card-info"><div class="photo-card-name">${esc(p.name)}</div>${p.caption?`<div class="photo-card-caption">${esc(p.caption)}</div>`:""}<div class="photo-card-time">${esc(p.time||"")}</div></div></div>`).join("");
+  document.querySelectorAll(".photo-card img").forEach(img=>{img.onclick=()=>openLightbox(img.dataset.src);});
+}
+function openLightbox(src){document.getElementById("lightboxImg").src=src;document.getElementById("lightbox").classList.add("open");}
+function closeLightbox(){document.getElementById("lightbox").classList.remove("open");document.getElementById("lightboxImg").src="";}
+
 initFirebase();
 </script>
 </body>
