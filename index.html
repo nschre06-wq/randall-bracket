@@ -200,7 +200,7 @@ textarea::placeholder{color:rgba(255,255,255,.25)}
 <header>
   <div class="eyebrow">⚽ 2026 FIFA World Cup</div>
   <h1>Randall Family<br>Bracket</h1>
-  <div class="header-sub">USA · Canada · Mexico · June 11 – July 19</div>
+ <div class="header-sub" id="headerSub">USA · Canada · Mexico · June 11 – July 19</div>
   <div class="live-pill"><span class="live-dot"></span><span class="live-text" id="lastUpdated">Jun 11 · MEX 2–0 RSA · KOR 2–1 CZE</span></div>
 </header>
 
@@ -565,6 +565,16 @@ async function persistScores(){
 
 function boot(){
   document.getElementById("loading").style.display="none";
+  const today=new Date();const d=today.toISOString().slice(0,10);
+  let rt="";
+  if(d<="2026-06-25")rt=`Group Stage · Day ${Math.min(Math.floor((today-new Date("2026-06-11"))/(1000*60*60*24))+1,15)} · USA · Canada · Mexico`;
+  else if(d<="2026-06-30")rt="⚔️ Round of 32 · Knockout stage begins";
+  else if(d<="2026-07-06")rt="⚔️ Round of 16 · Who survives?";
+  else if(d<="2026-07-09")rt="🔥 Quarterfinals · Final 8 remain";
+  else if(d<="2026-07-12")rt="🔥 Semifinals · Final 4 remain";
+  else if(d==="2026-07-19")rt="🏆 WORLD CUP FINAL DAY";
+  else rt="USA · Canada · Mexico · June 11 – July 19";
+  document.getElementById("headerSub").textContent=rt;
   renderBoard();renderStats();buildAllNameGrids();buildReactRow();
   renderFeed();renderPhotos();renderVibe();renderPredict();renderTournPicks();
   bindEvents();
