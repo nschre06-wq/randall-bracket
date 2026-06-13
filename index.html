@@ -305,6 +305,10 @@ textarea::placeholder{color:rgba(255,255,255,.25)}
     <div class="fact-holder" id="factHolder"></div>
     <div class="fact-grid" id="factGrid"></div>
     <div id="triviaSection"></div>
+    <div id="triviaNamePicker" style="margin-top:16px;padding:14px;background:rgba(0,0,0,.3);border-radius:10px;display:none">
+      <div class="trivia-title" style="margin-bottom:8px">🧠 Who's answering? Pick your name to earn the point</div>
+      <div class="name-grid" id="triviaNameGrid"></div>
+    </div>
   </div>
 </div>
 
@@ -345,8 +349,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // ── PASTE YOUR FIREBASE CONFIG HERE ──────────────────────────────
-const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyCL-V9ZsWKRGL7...",
+const FIREBASE_CONFIG = 
+  {apiKey: "AIzaSyCL-V9ZsWKRGL7...",
   authDomain: "fifa-randall.firebaseapp.com",
   projectId: "fifa-randall",
   storageBucket: "fifa-randall.firebasestorage.app",
@@ -520,7 +524,7 @@ let comments=[
   {name:"Roman",text:"Soccer",reaction:"⚽",time:"Jun 11 at 11:07 PM",ts:1749693420000}
 ],photos=[],vibeVotes={},predictions={},tournPicks={},triviaAnswered={};
 let adminMode=false,editIdx=null,editState={};
-let selNames={chat:"",predict:"",tournament:"",photo:"",vibe:""};
+let selNames={chat:"",predict:"",tournament:"",photo:"",vibe:"",trivia:""};
 let selEmoji="⚽",selectedImageData=null;
 let fbDb=null;
 
@@ -712,35 +716,42 @@ function buildReactRow(){
 }
 
 // ── FACT CARDS ────────────────────────────────────────────────────
-function openFactSheet(country,playerName){
+function openFactSheet(country,assignedPlayer){
   const ci=C[country]||{};
   document.getElementById("factFlag").textContent=ci.f||"🌍";
   document.getElementById("factName").textContent=country;
-  document.getElementById("factHolder").textContent=`Assigned to ${playerName}`;
+  document.getElementById("factHolder").textContent=`Assigned to ${assignedPlayer}`;
   document.getElementById("factGrid").innerHTML=`<div class="fact-cell"><div class="fact-cell-lbl">Capital</div><div class="fact-cell-val">${ci.cap||"—"}</div></div><div class="fact-cell"><div class="fact-cell-lbl">Population</div><div class="fact-cell-val">${ci.pop||"—"}</div></div><div class="fact-cell"><div class="fact-cell-lbl">Star Player</div><div class="fact-cell-val">${ci.star||"—"}</div></div><div class="fact-cell"><div class="fact-cell-lbl">World Cup</div><div class="fact-cell-val">${ci.wc||"—"}</div></div><div class="fact-cell full"><div class="fact-cell-lbl">Fun Fact</div><div class="fact-cell-val" style="font-size:13px;line-height:1.5">${ci.fact||"A fascinating country on the world stage."}</div></div>`;
-  const qs=TRIVIA[country];
-  const answered=triviaAnswered[country]||{};
+  const qs=TRIVIA[country];const answered=triviaAnswered[country]||{};
   if(qs){
     document.getElementById("triviaSection").innerHTML=`<div class="trivia-title">🧠 Trivia — earn up to ${qs.length} bonus points!</div>${qs.map((q,qi)=>{const isAns=answered[qi]!==undefined;const earned=isAns&&answered[qi]===q.a;return`<div class="trivia-q"><div class="trivia-q-text">${qi+1}. ${esc(q.q)}</div><div class="trivia-opts">${q.opts.map((opt,oi)=>{let cls="trivia-opt";if(isAns){cls+=(oi===q.a?" correct":(oi===answered[qi]?" wrong":""));}return`<button class="${cls}"${isAns?" disabled":""} data-country="${esc(country)}" data-qi="${qi}" data-oi="${oi}" data-ans="${q.a}">${esc(opt)}</button>`;}).join("")}</div>${isAns?`<div class="trivia-pts-earned">${earned?"✓ +1 bonus point earned!":"✗ Answer: "+esc(q.opts[q.a])}</div>`:"<div class='trivia-pts-earned'></div>"}</div>`;}).join("")}`;
-    document.querySelectorAll(".trivia-opt:not([disabled])").forEach(btn=>{
-      btn.onclick=()=>answerTrivia(btn.dataset.country,+btn.dataset.qi,+btn.dataset.oi,+btn.dataset.ans,playerName);
-    });
-  }else{
-    document.getElementById("triviaSection").innerHTML=`<div class="trivia-title">🌍 Learn something new about your country!</div>`;
-  }
+    const hasUnanswered=qs.some((_,qi)=>answered[qi]===undefined);
+    const picker=document.getElementById("triviaNamePicker");
+    if(hasUnanswered){
+      picker.style.display="block";
+      document.getElementById("triviaNameGrid").innerHTML=NAMES.map(n=>`<button class="name-btn" data-key="trivia" data-name="${esc(n)}">${esc(n)}</button>`).join("");
+      document.querySelectorAll("#triviaNameGrid .name-btn").forEach(btn=>{
+        btn.className="name-btn"+(btn.dataset.name===selNames.trivia?" sel":"");
+        btn.onclick=()=>{selNames.trivia=btn.dataset.name;document.querySelectorAll("#triviaNameGrid .name-btn").forEach(b=>b.className="name-btn"+(b.dataset.name===btn.dataset.name?" sel":""));};
+      });
+    }else{picker.style.display="none";}
+    document.querySelectorAll(".trivia-opt:not([disabled])").forEach(btn=>{btn.onclick=()=>answerTrivia(btn.dataset.country,+btn.dataset.qi,+btn.dataset.oi,+btn.dataset.ans);});
+  }else{document.getElementById("triviaSection").innerHTML=`<div class="trivia-title">🌍 Learn something new about your country!</div>`;document.getElementById("triviaNamePicker").style.display="none";}
   document.getElementById("factSheetBg").style.display="flex";
 }
 function closeFactSheet(){document.getElementById("factSheetBg").style.display="none";}
-async function answerTrivia(country,qi,oi,correctAns,playerName){
+async function answerTrivia(country,qi,oi,correctAns){
+  if(!selNames.trivia){showToast("Pick your name first to earn the point!");return;}
   const correct=oi===correctAns;
   if(!triviaAnswered[country])triviaAnswered[country]={};
   triviaAnswered[country][qi]=oi;
-  if(correct){const player=players.find(p=>p.n===playerName);if(player){player.bpts=(player.bpts||0)+1;await persistScores();}}
+  if(correct){const player=players.find(p=>p.n===selNames.trivia);if(player){player.bpts=(player.bpts||0)+1;await persistScores();}showToast(`✓ Correct! +1 bonus point for ${selNames.trivia}!`);}
+  else{showToast("✗ Not quite — try the next one!");}
   await fbSet("bracket","trivia",triviaAnswered);
   try{localStorage.setItem("rfb_tr",JSON.stringify(triviaAnswered));}catch(e){}
-  openFactSheet(country,playerName);
+  const assignedPlayer=document.getElementById("factHolder").textContent.replace("Assigned to ","");
+  openFactSheet(country,assignedPlayer);
 }
-
 // ── VIBE ──────────────────────────────────────────────────────────
 function getTodayVibe(){const today=todayStr();return VIBE_QUESTIONS.find(v=>v.date===today)||VIBE_QUESTIONS[VIBE_QUESTIONS.length-1];}
 function renderVibe(){
